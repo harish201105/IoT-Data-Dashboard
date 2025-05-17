@@ -421,6 +421,204 @@
   background-clip: text;
 }
 
+/* Rich dashboard styling */
+.dark-mode {
+  @apply bg-slate-900 text-slate-100;
+  color-scheme: dark;
+}
+
+.dark-mode .premium-card {
+  background: linear-gradient(to bottom, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9));
+  border: 1px solid rgba(51, 65, 85, 0.5);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode .glass-panel {
+  background: rgba(30, 41, 59, 0.7);
+  border: 1px solid rgba(51, 65, 85, 0.5);
+}
+
+.dark-mode .gradient-text {
+  background: linear-gradient(90deg, #60a5fa 0%, #3b82f6 80%, #818cf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Enhanced Card Styles */
+.dashboard-card {
+  @apply rounded-xl shadow-lg border border-slate-200/80 overflow-hidden transition-all duration-300;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.9), rgba(248, 250, 252, 0.8));
+  backdrop-filter: blur(8px);
+  transform: translateZ(0);
+}
+
+.dashboard-card:hover {
+  @apply shadow-xl border-slate-300/80;
+  transform: translateY(-3px) translateZ(0);
+}
+
+.dark-mode .dashboard-card {
+  @apply border-slate-700/80;
+  background: linear-gradient(to bottom, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.7));
+}
+
+.dark-mode .dashboard-card:hover {
+  @apply border-slate-600/80;
+}
+
+/* Notification animations */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.notification-item {
+  animation: slideIn 0.3s ease-out forwards;
+}
+
+/* Signal status indicators */
+.signal-status-indicator {
+  @apply w-4 h-4 rounded-full relative inline-block;
+}
+
+.signal-status-indicator::after {
+  content: '';
+  @apply absolute inset-0 rounded-full;
+  animation: pulse 2s infinite;
+}
+
+.signal-active {
+  @apply bg-emerald-500;
+}
+
+.signal-active::after {
+  @apply bg-emerald-400;
+}
+
+.signal-inactive {
+  @apply bg-red-500;
+}
+
+.signal-inactive::after {
+  @apply bg-red-400;
+}
+
+/* Performance Heat Map styling */
+.heat-map-cell {
+  @apply rounded-lg transition-all duration-300 p-4 relative overflow-hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.heat-map-cell:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.heat-map-cell::before {
+  content: '';
+  @apply absolute inset-0 opacity-10;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.15' fill-rule='evenodd'%3E%3Cpath d='M36 34h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4v-2h-2v-2h4v4h-2zm-4 0v-2h-2v-2h4v4h-2zm-4 8h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2v-2h2v2zm0-4h-2v-2h2v2z'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* History timeline styling */
+.history-timeline {
+  @apply relative pl-6;
+}
+
+.history-timeline::before {
+  content: '';
+  @apply absolute top-0 bottom-0 left-2 w-0.5 bg-slate-200;
+}
+
+.dark-mode .history-timeline::before {
+  @apply bg-slate-700;
+}
+
+.history-entry {
+  @apply relative mb-4;
+}
+
+.history-entry::before {
+  content: '';
+  @apply absolute top-2 left-[-24px] w-4 h-4 rounded-full bg-white border-2 border-blue-500;
+}
+
+.dark-mode .history-entry::before {
+  @apply bg-slate-800;
+}
+
+/* Control panel enhancements */
+.control-slider {
+  @apply relative h-2 rounded-full bg-slate-200 overflow-hidden;
+}
+
+.dark-mode .control-slider {
+  @apply bg-slate-700;
+}
+
+.control-slider-fill {
+  @apply absolute top-0 left-0 h-full bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full;
+  transition: width 0.3s ease;
+}
+
+.control-knob {
+  @apply absolute top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-white border-2 border-blue-500 shadow-md;
+  transition: left 0.3s ease;
+}
+
+.dark-mode .control-knob {
+  @apply bg-slate-800 border-blue-400;
+}
+
+/* Chart enhancement */
+.chart-container {
+  @apply relative rounded-xl shadow-lg overflow-hidden transition-all duration-500;
+  min-height: 400px;
+}
+
+.chart-container:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.dark-mode .chart-container {
+  @apply border border-slate-700;
+}
+
+.chart-tabs {
+  @apply flex bg-slate-100/70 p-1 rounded-lg w-fit;
+}
+
+.dark-mode .chart-tabs {
+  @apply bg-slate-800/70;
+}
+
+.chart-tab {
+  @apply px-4 py-1.5 text-sm font-medium rounded-md transition-all duration-200;
+}
+
+.chart-tab-active {
+  @apply bg-white shadow-sm text-blue-600;
+}
+
+.dark-mode .chart-tab-active {
+  @apply bg-slate-700 text-blue-400;
+}
+
+.chart-tab-inactive {
+  @apply text-slate-600 hover:text-slate-900;
+}
+
+.dark-mode .chart-tab-inactive {
+  @apply text-slate-400 hover:text-slate-200;
+}
+
 .gradient-text-secondary {
   background: linear-gradient(90deg, #6366f1 0%, #8b5cf6 100%);
   -webkit-background-clip: text;
