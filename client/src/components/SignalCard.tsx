@@ -175,7 +175,7 @@ const SignalCard: React.FC<SignalCardProps> = ({
               onMouseEnter={() => playSound('hover')}
             >
               {/* Realistic Traffic Light Component */}
-              <div className="flex justify-center items-center relative z-10">
+              <div className="flex justify-center items-center relative z-10 pt-5 pb-12">
                 <div className={`traffic-light-housing ${showEasterEgg ? 'easter-egg-bounce active' : ''}`}>
                   {/* Traffic light housing */}
                   <div className="traffic-light-body">
@@ -214,14 +214,14 @@ const SignalCard: React.FC<SignalCardProps> = ({
                 </div>
               </div>
               
-              {/* Direction & Junction Details */}
-              <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/70 to-transparent">
+              {/* Direction & Junction Details - Positioned to not get hidden by traffic light */}
+              <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent z-20">
                 <div className="flex flex-col text-white">
-                  <h3 className="text-xl font-bold tracking-tight">{formatDirection(direction)} Intersection</h3>
-                  <div className="mt-1 flex justify-between items-center">
-                    <div className="flex items-center">
-                      <Cpu className="h-3 w-3 mr-1" />
-                      <span className="text-xs">Junction ID: {direction.toUpperCase()}-{Math.floor(Math.random() * 1000)}</span>
+                  <h3 className="text-lg font-bold tracking-tight relative z-20">{formatDirection(direction)} Intersection</h3>
+                  <div className="mt-1 flex justify-between items-center flex-wrap relative z-20">
+                    <div className="flex items-center mb-1">
+                      <Cpu className="h-3 w-3 mr-1 flex-shrink-0" />
+                      <span className="text-xs whitespace-nowrap">Junction ID: {direction.toUpperCase()}-{Math.floor(Math.random() * 1000)}</span>
                     </div>
                     <span className="text-xs font-semibold uppercase px-2 py-0.5 rounded bg-white/20 backdrop-blur-sm">
                       Signal: {signal.signal}
