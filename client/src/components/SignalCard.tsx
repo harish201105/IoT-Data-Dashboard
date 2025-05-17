@@ -45,7 +45,7 @@ const SignalCard: React.FC<SignalCardProps> = ({
           </div>
           <div className="p-5">
             <motion.div variants={skeletonVariants} animate="pulse">
-              <div className="w-full h-56 rounded-xl mb-4 bg-gradient-to-br from-slate-200 to-slate-300 dark:from-slate-700 dark:to-slate-600 relative overflow-hidden">
+              <div className="w-full h-56 rounded-xl mb-4 bg-gradient-to-br from-slate-200 to-slate-300 dark:from-slate-700 dark:to-slate-600 relative overflow-hidden premium-skeleton">
                 <div className="absolute inset-0 opacity-5 junction-pattern"></div>
                 <div className="h-full flex items-center justify-center">
                   <div className="w-16 h-44 rounded-lg bg-slate-300 dark:bg-slate-600 flex flex-col items-center justify-center gap-3 shadow-lg">
@@ -54,6 +54,7 @@ const SignalCard: React.FC<SignalCardProps> = ({
                     <div className="w-10 h-10 rounded-full bg-slate-400 dark:bg-slate-500"></div>
                   </div>
                 </div>
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-slate-200/50 dark:to-slate-800/50"></div>
               </div>
             </motion.div>
             <div className="grid grid-cols-2 gap-6 mb-6">
@@ -63,18 +64,18 @@ const SignalCard: React.FC<SignalCardProps> = ({
                 <Skeleton className="h-4 w-16 mx-auto mt-3 bg-slate-200 dark:bg-slate-600 premium-skeleton" />
               </motion.div>
               <motion.div variants={skeletonVariants} animate="pulse" className="glass-panel p-4 text-center">
-                <Skeleton className="h-4 w-20 mx-auto mb-3 bg-slate-200 dark:bg-slate-600" />
-                <Skeleton className="h-16 w-full rounded-lg mx-auto bg-slate-200 dark:bg-slate-600" />
+                <Skeleton className="h-4 w-20 mx-auto mb-3 bg-slate-200 dark:bg-slate-600 premium-skeleton" />
+                <Skeleton className="h-16 w-full rounded-lg mx-auto bg-slate-200 dark:bg-slate-600 premium-skeleton" />
                 <div className="mt-2 flex justify-between">
-                  <Skeleton className="h-3 w-6 bg-slate-200 dark:bg-slate-600" />
-                  <Skeleton className="h-3 w-6 bg-slate-200 dark:bg-slate-600" />
-                  <Skeleton className="h-3 w-6 bg-slate-200 dark:bg-slate-600" />
+                  <Skeleton className="h-3 w-6 bg-slate-200 dark:bg-slate-600 premium-skeleton" />
+                  <Skeleton className="h-3 w-6 bg-slate-200 dark:bg-slate-600 premium-skeleton" />
+                  <Skeleton className="h-3 w-6 bg-slate-200 dark:bg-slate-600 premium-skeleton" />
                 </div>
               </motion.div>
             </div>
             <motion.div variants={skeletonVariants} animate="pulse" className="flex items-center justify-between pt-3 border-t border-slate-200 dark:border-slate-700">
-              <Skeleton className="h-8 w-32 rounded-full bg-slate-200 dark:bg-slate-600" />
-              <Skeleton className="h-9 w-24 rounded-lg bg-slate-200 dark:bg-slate-600" />
+              <Skeleton className="h-8 w-32 rounded-full bg-slate-200 dark:bg-slate-600 premium-skeleton" />
+              <Skeleton className="h-9 w-24 rounded-lg bg-slate-200 dark:bg-slate-600 premium-skeleton" />
             </motion.div>
           </div>
         </Card>
