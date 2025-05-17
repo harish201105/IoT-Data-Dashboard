@@ -268,8 +268,8 @@ const SignalCard: React.FC<SignalCardProps> = ({
               <p className="mt-3 font-bold text-slate-800 dark:text-slate-100 capitalize">{signal.signal}</p>
               
               {/* Detailed tooltip on hover */}
-              <div className="signal-tooltip absolute top-28 left-1/2 -translate-x-1/2 w-64 p-4 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 shadow-xl z-50">
-                <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white dark:bg-slate-800 border-t border-l border-slate-200 dark:border-slate-700 transform rotate-45"></div>
+              <div className="signal-tooltip w-64 p-4 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 shadow-xl z-50">
+                <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white dark:bg-slate-800 border-b border-r border-slate-200 dark:border-slate-700 transform rotate-45"></div>
                 <h4 className="text-sm font-semibold mb-2">Signal Performance Details</h4>
                 <div className="space-y-2">
                   <div className="flex justify-between text-xs">
@@ -317,8 +317,8 @@ const SignalCard: React.FC<SignalCardProps> = ({
               </div>
               
               {/* Duration tooltip */}
-              <div className="signal-tooltip absolute top-28 left-1/2 -translate-x-1/2 w-64 p-4 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 shadow-xl z-50">
-                <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white dark:bg-slate-800 border-t border-l border-slate-200 dark:border-slate-700 transform rotate-45"></div>
+              <div className="signal-tooltip w-64 p-4 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 shadow-xl z-50">
+                <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white dark:bg-slate-800 border-b border-r border-slate-200 dark:border-slate-700 transform rotate-45"></div>
                 <h4 className="text-sm font-semibold mb-2">Duration Information</h4>
                 <div className="space-y-2">
                   <div className="flex justify-between text-xs">

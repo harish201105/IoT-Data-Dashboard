@@ -535,24 +535,28 @@
 .signal-tooltip-container {
   position: relative;
   isolation: isolate;
-  z-index: 1;
+  z-index: 10;
 }
 
 /* Signal card info tooltip */
 .signal-tooltip {
   opacity: 0;
   visibility: hidden;
-  transform: translateY(10px);
   transition: all 0.3s ease;
   pointer-events: none;
   z-index: 100;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  /* Position as a floating tooltip */
+  position: absolute;
+  bottom: calc(100% + 15px);  /* Position above the container */
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
 }
 
 .signal-tooltip-container:hover .signal-tooltip {
   opacity: 1;
   visibility: visible;
-  transform: translateY(0);
+  transform: translateX(-50%) translateY(0);
 }
 
 /* Custom easter egg animations */
