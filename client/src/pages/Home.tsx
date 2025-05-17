@@ -78,23 +78,6 @@ const Home: React.FC = () => {
               />
             </div>
             
-            {/* Real-time Signal Chart */}
-            <div className="relative mb-8">
-              <div className="absolute top-1/2 -translate-y-1/2 -left-8 w-16 h-64 bg-blue-500/10 rounded-full blur-2xl"></div>
-              <div className="absolute top-1/2 -translate-y-1/2 -right-8 w-16 h-64 bg-purple-500/10 rounded-full blur-2xl"></div>
-              
-              <div className="mb-4">
-                <h2 className="text-2xl font-bold gradient-text mb-1">Real-time Signal Visualization</h2>
-                <p className="text-slate-600">Interactive chart displaying signal states and durations across all intersections</p>
-              </div>
-              
-              <SignalChart 
-                signalData={data || {}} 
-                isLoading={isLoading}
-                chartType="composed"
-              />
-            </div>
-            
             <div className="relative">
               <div className="absolute top-1/2 -translate-y-1/2 -left-8 w-16 h-64 bg-green-500/10 rounded-full blur-2xl"></div>
               <div className="absolute top-1/2 -translate-y-1/2 -right-8 w-16 h-64 bg-yellow-500/10 rounded-full blur-2xl"></div>
@@ -117,6 +100,23 @@ const Home: React.FC = () => {
               <DurationControlPanel 
                 duration={duration} 
                 onUpdateDuration={handleDurationUpdate} 
+              />
+            </div>
+            
+            {/* Real-time Signal Chart with Advanced Visualizations */}
+            <div className="relative mt-12 mb-6 transform transition-all duration-1000 hover:scale-[1.01]">
+              <div className="absolute top-1/2 -translate-y-1/2 -left-8 w-16 h-64 bg-blue-500/10 rounded-full blur-2xl"></div>
+              <div className="absolute top-1/2 -translate-y-1/2 -right-8 w-16 h-64 bg-purple-500/10 rounded-full blur-2xl"></div>
+              
+              <div className="mb-4">
+                <h2 className="text-2xl font-bold gradient-text mb-1">Advanced Signal Analytics</h2>
+                <p className="text-slate-600">Real-time animated visualization of traffic signal patterns and timing analysis</p>
+              </div>
+              
+              <SignalChart 
+                signalData={data || {}} 
+                isLoading={isLoading}
+                chartType="composed"
               />
             </div>
           </div>
