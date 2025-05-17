@@ -106,26 +106,29 @@ const Home: React.FC = () => {
     }`}>
       <Header isOnline={!error} lastUpdated={lastUpdated} />
       
-      {/* User control panel - positioned away from header content */}
-      <div className="fixed top-20 right-6 z-50 flex items-center space-x-3">
-        <ThemeToggle isDarkMode={isDarkMode} toggleTheme={toggleDarkMode} />
-        <UserPreferences 
-          isDarkMode={isDarkMode}
-          setIsDarkMode={toggleDarkMode}
-          refreshInterval={refreshInterval / 1000} // Convert to seconds for display
-          setRefreshInterval={(value) => setRefreshInterval(value * 1000)} // Convert to ms
-          chartType={chartType}
-          setChartType={setChartType}
-          showNotifications={showNotifications}
-          setShowNotifications={setShowNotifications}
-          dashboardLayout={dashboardLayout}
-          setDashboardLayout={setDashboardLayout}
-        />
+      {/* User control panel as a floating toolbar at top of screen */}
+      <div className="fixed top-0 left-0 right-0 z-50 flex justify-center">
+        <div className="mt-2 px-4 py-2 bg-white/90 dark:bg-slate-800/90 rounded-full shadow-lg backdrop-blur-sm border border-slate-100 dark:border-slate-700 flex items-center space-x-4">
+          <ThemeToggle isDarkMode={isDarkMode} toggleTheme={toggleDarkMode} />
+          <div className="h-6 w-0.5 bg-slate-200 dark:bg-slate-700"></div>
+          <UserPreferences 
+            isDarkMode={isDarkMode}
+            setIsDarkMode={toggleDarkMode}
+            refreshInterval={refreshInterval / 1000} // Convert to seconds for display
+            setRefreshInterval={(value) => setRefreshInterval(value * 1000)} // Convert to ms
+            chartType={chartType}
+            setChartType={setChartType}
+            showNotifications={showNotifications}
+            setShowNotifications={setShowNotifications}
+            dashboardLayout={dashboardLayout}
+            setDashboardLayout={setDashboardLayout}
+          />
+        </div>
       </div>
       
-      {/* Notification System - positioned to avoid overlapping with other elements */}
+      {/* Notification System - moved to left side to avoid overlapping */}
       {showNotifications && data && previousData && (
-        <div className="fixed top-24 right-6 z-40 max-w-sm">
+        <div className="fixed top-24 left-6 z-40 max-w-md">
           <NotificationSystem signalData={data} previousData={previousData} />
         </div>
       )}

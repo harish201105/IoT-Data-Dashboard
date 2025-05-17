@@ -30,7 +30,7 @@ const Footer: React.FC = () => {
           </div>
           
           <div>
-            <h4 className="font-semibold text-slate-800 mb-3">Resources</h4>
+            <h4 className="font-semibold text-slate-800 dark:text-slate-200 mb-3">Resources</h4>
             <ul className="space-y-2">
               <li>
                 <Button variant="link" className="text-sm p-0 h-auto text-slate-600 hover:text-blue-600">
@@ -54,25 +54,25 @@ const Footer: React.FC = () => {
           </div>
           
           <div>
-            <h4 className="font-semibold text-slate-800 mb-3">System Status</h4>
-            <div className="bg-white p-3 rounded-lg shadow-sm border border-slate-100">
+            <h4 className="font-semibold text-slate-800 dark:text-slate-200 mb-3">System Status</h4>
+            <div className="bg-white dark:bg-slate-800 p-3 rounded-lg shadow-sm border border-slate-100 dark:border-slate-700">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-medium text-slate-500">API</span>
-                <span className="flex items-center text-xs font-medium text-green-600">
+                <span className="text-xs font-medium text-slate-500 dark:text-slate-400">API</span>
+                <span className="flex items-center text-xs font-medium text-green-600 dark:text-green-400">
                   <span className="w-1.5 h-1.5 rounded-full bg-green-500 mr-1"></span>
                   Operational
                 </span>
               </div>
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-medium text-slate-500">Dashboard</span>
-                <span className="flex items-center text-xs font-medium text-green-600">
+                <span className="text-xs font-medium text-slate-500 dark:text-slate-400">Dashboard</span>
+                <span className="flex items-center text-xs font-medium text-green-600 dark:text-green-400">
                   <span className="w-1.5 h-1.5 rounded-full bg-green-500 mr-1"></span>
                   Operational
                 </span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-xs font-medium text-slate-500">Server</span>
-                <span className="flex items-center text-xs font-medium text-green-600">
+                <span className="text-xs font-medium text-slate-500 dark:text-slate-400">Server</span>
+                <span className="flex items-center text-xs font-medium text-green-600 dark:text-green-400">
                   <span className="w-1.5 h-1.5 rounded-full bg-green-500 mr-1"></span>
                   Operational
                 </span>

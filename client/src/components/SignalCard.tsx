@@ -19,32 +19,66 @@ const SignalCard: React.FC<SignalCardProps> = ({
   isLoading,
   duration 
 }) => {
+  // Define animation variants for the loading skeleton
+  const skeletonVariants = {
+    pulse: {
+      opacity: [0.5, 0.8, 0.5],
+      transition: {
+        duration: 1.5,
+        repeat: Infinity,
+        ease: "easeInOut"
+      }
+    }
+  };
+
   if (isLoading) {
     return (
-      <Card className="premium-card card-transition">
-        <div className="p-4 border-b border-slate-100 flex justify-between items-center">
-          <Skeleton className="h-6 w-40" />
-          <Skeleton className="h-6 w-12 rounded-full" />
-        </div>
-        <div className="p-5">
-          <Skeleton className="w-full h-36 rounded-xl mb-4 shimmer-effect" />
-          <div className="grid grid-cols-2 gap-4 mb-4">
-            <div className="text-center">
-              <Skeleton className="h-4 w-20 mx-auto mb-1" />
-              <Skeleton className="h-14 w-14 rounded-full mx-auto shimmer-effect" />
-              <Skeleton className="h-4 w-16 mx-auto mt-1" />
-            </div>
-            <div className="text-center">
-              <Skeleton className="h-4 w-20 mx-auto mb-1" />
-              <Skeleton className="h-14 w-full rounded-xl shimmer-effect" />
-            </div>
+      <motion.div initial={{opacity: 0.6, y: 10}} animate={{opacity: 1, y: 0}} transition={{duration: 0.5}}>
+        <Card className="premium-card shadow-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
+          <div className="p-4 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-700">
+            <motion.div variants={skeletonVariants} animate="pulse">
+              <Skeleton className="h-6 w-40 bg-slate-200 dark:bg-slate-600" />
+            </motion.div>
+            <motion.div variants={skeletonVariants} animate="pulse">
+              <Skeleton className="h-6 w-12 rounded-full bg-slate-200 dark:bg-slate-600" />
+            </motion.div>
           </div>
-          <div className="flex items-center justify-between">
-            <Skeleton className="h-4 w-32" />
-            <Skeleton className="h-8 w-24 rounded-lg" />
+          <div className="p-5">
+            <motion.div variants={skeletonVariants} animate="pulse">
+              <div className="w-full h-56 rounded-xl mb-4 bg-gradient-to-br from-slate-200 to-slate-300 dark:from-slate-700 dark:to-slate-600 relative overflow-hidden">
+                <div className="absolute inset-0 opacity-5 junction-pattern"></div>
+                <div className="h-full flex items-center justify-center">
+                  <div className="w-16 h-44 rounded-lg bg-slate-300 dark:bg-slate-600 flex flex-col items-center justify-center gap-3 shadow-lg">
+                    <div className="w-10 h-10 rounded-full bg-slate-400 dark:bg-slate-500"></div>
+                    <div className="w-10 h-10 rounded-full bg-slate-400 dark:bg-slate-500"></div>
+                    <div className="w-10 h-10 rounded-full bg-slate-400 dark:bg-slate-500"></div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+            <div className="grid grid-cols-2 gap-6 mb-6">
+              <motion.div variants={skeletonVariants} animate="pulse" className="glass-panel p-4 text-center">
+                <Skeleton className="h-4 w-20 mx-auto mb-3 bg-slate-200 dark:bg-slate-600" />
+                <Skeleton className="h-16 w-16 rounded-full mx-auto bg-slate-200 dark:bg-slate-600" />
+                <Skeleton className="h-4 w-16 mx-auto mt-3 bg-slate-200 dark:bg-slate-600" />
+              </motion.div>
+              <motion.div variants={skeletonVariants} animate="pulse" className="glass-panel p-4 text-center">
+                <Skeleton className="h-4 w-20 mx-auto mb-3 bg-slate-200 dark:bg-slate-600" />
+                <Skeleton className="h-16 w-full rounded-lg mx-auto bg-slate-200 dark:bg-slate-600" />
+                <div className="mt-2 flex justify-between">
+                  <Skeleton className="h-3 w-6 bg-slate-200 dark:bg-slate-600" />
+                  <Skeleton className="h-3 w-6 bg-slate-200 dark:bg-slate-600" />
+                  <Skeleton className="h-3 w-6 bg-slate-200 dark:bg-slate-600" />
+                </div>
+              </motion.div>
+            </div>
+            <motion.div variants={skeletonVariants} animate="pulse" className="flex items-center justify-between pt-3 border-t border-slate-200 dark:border-slate-700">
+              <Skeleton className="h-8 w-32 rounded-full bg-slate-200 dark:bg-slate-600" />
+              <Skeleton className="h-9 w-24 rounded-lg bg-slate-200 dark:bg-slate-600" />
+            </motion.div>
           </div>
-        </div>
-      </Card>
+        </Card>
+      </motion.div>
     );
   }
 
