@@ -2,7 +2,7 @@ import React from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Signal } from "@/types/signals";
-import { Info, Activity, MapPin } from "lucide-react";
+import { Info, Activity, MapPin, Cpu, ArrowUpRight } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { motion } from "framer-motion";
 
@@ -21,27 +21,27 @@ const SignalCard: React.FC<SignalCardProps> = ({
 }) => {
   if (isLoading) {
     return (
-      <Card className="overflow-hidden shadow-lg card-transition">
+      <Card className="premium-card card-transition">
         <div className="p-4 border-b border-slate-100 flex justify-between items-center">
           <Skeleton className="h-6 w-40" />
           <Skeleton className="h-6 w-12 rounded-full" />
         </div>
         <div className="p-5">
-          <Skeleton className="w-full h-32 rounded-md mb-4" />
+          <Skeleton className="w-full h-36 rounded-xl mb-4 shimmer-effect" />
           <div className="grid grid-cols-2 gap-4 mb-4">
             <div className="text-center">
               <Skeleton className="h-4 w-20 mx-auto mb-1" />
-              <Skeleton className="h-12 w-12 rounded-full mx-auto" />
+              <Skeleton className="h-14 w-14 rounded-full mx-auto shimmer-effect" />
               <Skeleton className="h-4 w-16 mx-auto mt-1" />
             </div>
             <div className="text-center">
               <Skeleton className="h-4 w-20 mx-auto mb-1" />
-              <Skeleton className="h-12 w-full rounded-md" />
+              <Skeleton className="h-14 w-full rounded-xl shimmer-effect" />
             </div>
           </div>
           <div className="flex items-center justify-between">
             <Skeleton className="h-4 w-32" />
-            <Skeleton className="h-4 w-16" />
+            <Skeleton className="h-8 w-24 rounded-lg" />
           </div>
         </div>
       </Card>
@@ -72,8 +72,6 @@ const SignalCard: React.FC<SignalCardProps> = ({
     animate: { opacity: 1, y: 0, transition: { duration: 0.5 } }
   };
 
-  // This animation is now directly applied to the element
-
   return (
     <motion.div
       initial="initial"
@@ -81,53 +79,62 @@ const SignalCard: React.FC<SignalCardProps> = ({
       variants={cardVariants}
       className="signal-card-fade-in"
     >
-      <Card className="overflow-hidden shadow-lg card-transition hover:border-blue-300">
-        <div className="p-4 border-b border-slate-100 bg-gradient-to-r from-slate-50 to-white">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center">
-              <MapPin className="h-5 w-5 text-blue-500 mr-2" />
-              <h3 className="font-semibold text-slate-800 gradient-text">{formatDirection(direction)} Signal</h3>
+      <Card className="premium-card shine-effect">
+        <div className="premium-card-header rounded-t-xl p-4 flex justify-between items-center">
+          <div className="flex items-center">
+            <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center mr-3">
+              <MapPin className="h-4 w-4 text-white" />
             </div>
-            <span className={`px-3 py-1 text-xs font-medium rounded-full ${
-              signal.status === "on" 
-                ? "bg-green-100 text-green-800 border border-green-300 status-on" 
-                : "bg-red-100 text-red-800 border border-red-300"
-            }`}>
-              {signal.status === "on" ? "ACTIVE" : "INACTIVE"}
-            </span>
+            <h3 className="font-bold text-white text-lg tracking-tight">{formatDirection(direction)} Signal</h3>
           </div>
+          <span className={`px-3 py-1 text-xs font-bold rounded-full 
+            ${signal.status === "on" 
+              ? "bg-emerald-100 text-emerald-800 border border-emerald-300 status-on" 
+              : "bg-red-100 text-red-800 border border-red-300"
+            }`}
+          >
+            {signal.status === "on" ? "ACTIVE" : "INACTIVE"}
+          </span>
         </div>
-        <div className="p-5">
-          <div className="relative mb-4 overflow-hidden rounded-md group">
-            <img 
-              src={getSignalImage(direction)} 
-              alt={`Traffic signal at ${formatDirection(direction)} intersection`} 
-              className="w-full h-36 object-cover rounded-md transition-transform duration-500 ease-in-out group-hover:scale-110"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            <div className="absolute bottom-0 left-0 p-3 text-white font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              {formatDirection(direction)} Intersection
+
+        <div className="p-6">
+          <div className="relative mb-6 overflow-hidden rounded-xl group shadow-lg">
+            <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl blur-sm opacity-50"></div>
+            <div className="relative">
+              <img 
+                src={getSignalImage(direction)} 
+                alt={`Traffic signal at ${formatDirection(direction)} intersection`} 
+                className="w-full h-40 object-cover rounded-lg transition-transform duration-700 ease-in-out group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="absolute bottom-0 left-0 p-4 text-white opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0">
+                <div className="font-bold text-lg">{formatDirection(direction)} Intersection</div>
+                <div className="text-xs text-white/80 flex items-center">
+                  <Cpu className="h-3 w-3 mr-1" />
+                  <span>ID: {direction.toUpperCase()}-{Math.floor(Math.random() * 1000)}</span>
+                </div>
+              </div>
             </div>
           </div>
           
-          <div className="grid grid-cols-2 gap-6 mb-5">
-            <div className="text-center p-3 bg-slate-50 rounded-lg">
-              <p className="text-xs font-medium text-slate-500 mb-2">Signal Status</p>
+          <div className="grid grid-cols-2 gap-6 mb-6">
+            <div className="glass-panel p-4 text-center">
+              <h4 className="text-xs font-semibold text-indigo-800 mb-3 uppercase tracking-wider">Signal Status</h4>
               <motion.div 
                 animate={{
                   scale: [1, 1.05, 1],
                   boxShadow: [
                     '0 0 5px rgba(0,0,0,0.2)',
-                    '0 0 15px rgba(0,0,0,0.4)',
+                    '0 0 20px rgba(0,0,0,0.4)',
                     '0 0 5px rgba(0,0,0,0.2)'
                   ]
                 }}
                 transition={{
-                  duration: 2,
+                  duration: 2.5,
                   repeat: Infinity,
                   repeatType: "reverse" as const
                 }}
-                className={`signal-indicator w-14 h-14 mx-auto rounded-full ${
+                className={`signal-indicator w-16 h-16 mx-auto rounded-full ${
                   signal.signal === "red" ? "bg-signal-red" :
                   signal.signal === "green" ? "bg-signal-green" :
                   signal.signal === "yellow" ? "bg-signal-yellow" :
@@ -135,26 +142,50 @@ const SignalCard: React.FC<SignalCardProps> = ({
                 }`}
                 title={`${signal.signal} signal`}
               ></motion.div>
-              <p className="mt-2 font-medium text-slate-800 capitalize">{signal.signal}</p>
+              <p className="mt-3 font-bold text-slate-800 capitalize">{signal.signal}</p>
             </div>
             
-            <div className="text-center p-3 bg-blue-50 rounded-lg">
-              <p className="text-xs font-medium text-blue-700 mb-2">Duration</p>
-              <div className="h-14 flex items-center justify-center bg-white rounded-md shadow-sm">
-                <p className="text-xl font-semibold text-blue-600 duration-value">{duration || signal.duration}</p>
-                <span className="text-sm text-slate-500 ml-1">sec</span>
+            <div className="glass-panel p-4 text-center relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-indigo-500/5"></div>
+              <div className="relative">
+                <h4 className="text-xs font-semibold text-indigo-800 mb-3 uppercase tracking-wider">Duration</h4>
+                <div className="h-16 flex items-center justify-center glass-panel shadow-sm">
+                  <p className="text-2xl font-bold text-blue-700 duration-value">{duration || signal.duration}</p>
+                  <span className="text-sm text-blue-500 ml-1 font-medium">sec</span>
+                </div>
+                <div className="mt-2 flex justify-between text-[10px] text-slate-500">
+                  <span>10</span>
+                  <span>60</span>
+                  <span>120</span>
+                </div>
+                <div className="h-1.5 bg-slate-200 rounded-full mt-1">
+                  <div 
+                    className="h-full bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full transition-all duration-500" 
+                    style={{ width: `${Math.min(100, Math.max(0, (parseInt(duration || signal.duration) - 10) / (120 - 10) * 100))}%` }}
+                  ></div>
+                </div>
               </div>
             </div>
           </div>
           
-          <div className="flex items-center justify-between text-sm border-t border-slate-100 pt-3">
-            <div className="flex items-center">
-              <Activity className="text-blue-500 h-4 w-4 mr-1" />
-              <span className="text-slate-600">Status: {signal.status === "on" ? "Active" : "Inactive"}</span>
+          <div className="flex items-center justify-between pt-3 border-t border-slate-200">
+            <div className="flex items-center px-3 py-1.5 rounded-full bg-slate-50">
+              <Activity className="text-indigo-600 h-4 w-4 mr-2" />
+              <span className="text-sm font-medium text-slate-800">
+                {signal.status === "on" ? 
+                  <span className="text-emerald-600">Active</span> : 
+                  <span className="text-red-600">Inactive</span>
+                }
+              </span>
             </div>
-            <Button variant="ghost" size="sm" className="text-blue-600 hover:text-blue-800 hover:bg-blue-50 p-0 py-1 px-2 rounded">
-              <Info className="h-4 w-4 mr-1" />
-              View Details
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="bg-white text-indigo-700 border-indigo-200 hover:bg-indigo-50 hover:text-indigo-800 hover:border-indigo-300 btn-3d"
+            >
+              <Info className="h-4 w-4 mr-2" />
+              Details
+              <ArrowUpRight className="h-3 w-3 ml-1" />
             </Button>
           </div>
         </div>
