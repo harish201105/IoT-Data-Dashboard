@@ -2,6 +2,7 @@ import React from "react";
 import Header from "@/components/Header";
 import SystemOverview from "@/components/SystemOverview";
 import SignalCards from "@/components/SignalCards";
+import SignalChart from "@/components/SignalChart";
 import DurationControlPanel from "@/components/DurationControlPanel";
 import Footer from "@/components/Footer";
 import ErrorDisplay from "@/components/ErrorDisplay";
@@ -77,9 +78,31 @@ const Home: React.FC = () => {
               />
             </div>
             
+            {/* Real-time Signal Chart */}
+            <div className="relative mb-8">
+              <div className="absolute top-1/2 -translate-y-1/2 -left-8 w-16 h-64 bg-blue-500/10 rounded-full blur-2xl"></div>
+              <div className="absolute top-1/2 -translate-y-1/2 -right-8 w-16 h-64 bg-purple-500/10 rounded-full blur-2xl"></div>
+              
+              <div className="mb-4">
+                <h2 className="text-2xl font-bold gradient-text mb-1">Real-time Signal Visualization</h2>
+                <p className="text-slate-600">Interactive chart displaying signal states and durations across all intersections</p>
+              </div>
+              
+              <SignalChart 
+                signalData={data || {}} 
+                isLoading={isLoading}
+                chartType="composed"
+              />
+            </div>
+            
             <div className="relative">
               <div className="absolute top-1/2 -translate-y-1/2 -left-8 w-16 h-64 bg-green-500/10 rounded-full blur-2xl"></div>
               <div className="absolute top-1/2 -translate-y-1/2 -right-8 w-16 h-64 bg-yellow-500/10 rounded-full blur-2xl"></div>
+              
+              <div className="mb-4">
+                <h2 className="text-2xl font-bold gradient-text mb-1">Traffic Signal Status</h2>
+                <p className="text-slate-600">Current state of all traffic signals across monitored intersections</p>
+              </div>
               
               <SignalCards 
                 signals={data || {}} 
