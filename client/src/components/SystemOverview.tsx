@@ -42,16 +42,21 @@ const SystemOverview: React.FC<SystemOverviewProps> = ({
                 <Button 
                   variant="outline" 
                   size="sm" 
-                  className="inline-flex items-center bg-white/20 text-white border-white/30 hover:bg-white/30" 
+                  className="inline-flex items-center bg-white/20 text-white border-white/30 hover:bg-white/30 transition-all" 
                   onClick={onRefresh}
                   disabled={isLoading}
                 >
                   {isLoading ? (
-                    <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
+                    <>
+                      <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
+                      Fetching Data...
+                    </>
                   ) : (
-                    <RefreshCw className="h-4 w-4 mr-2" />
+                    <>
+                      <RefreshCw className="h-4 w-4 mr-2" />
+                      Fetch Latest Data
+                    </>
                   )}
-                  Refresh Data
                 </Button>
               </div>
             </div>

@@ -2,7 +2,7 @@ import React from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Signal } from "@/types/signals";
-import { Info, Activity, MapPin, Cpu, ArrowUpRight } from "lucide-react";
+import { Info, Activity, MapPin, Cpu, ArrowUpRight, Clock } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { motion } from "framer-motion";
 
@@ -168,25 +168,34 @@ const SignalCard: React.FC<SignalCardProps> = ({
             </div>
           </div>
           
-          <div className="flex items-center justify-between pt-3 border-t border-slate-200">
-            <div className="flex items-center px-3 py-1.5 rounded-full bg-slate-50">
-              <Activity className="text-indigo-600 h-4 w-4 mr-2" />
-              <span className="text-sm font-medium text-slate-800">
-                {signal.status === "on" ? 
-                  <span className="text-emerald-600">Active</span> : 
-                  <span className="text-red-600">Inactive</span>
-                }
-              </span>
+          <div className="flex flex-col gap-2">
+            {signal.timestamp && (
+              <div className="flex items-center text-xs text-slate-500 py-1">
+                <Clock className="h-3 w-3 mr-1 text-indigo-400" />
+                <span>Updated: {new Date(signal.timestamp).toLocaleTimeString()}</span>
+              </div>
+            )}
+            
+            <div className="flex items-center justify-between pt-2 border-t border-slate-200">
+              <div className="flex items-center px-3 py-1.5 rounded-full bg-slate-50">
+                <Activity className="text-indigo-600 h-4 w-4 mr-2" />
+                <span className="text-sm font-medium text-slate-800">
+                  {signal.status === "on" ? 
+                    <span className="text-emerald-600">Active</span> : 
+                    <span className="text-red-600">Inactive</span>
+                  }
+                </span>
+              </div>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="bg-white text-indigo-700 border-indigo-200 hover:bg-indigo-50 hover:text-indigo-800 hover:border-indigo-300 btn-3d"
+              >
+                <Info className="h-4 w-4 mr-2" />
+                Details
+                <ArrowUpRight className="h-3 w-3 ml-1" />
+              </Button>
             </div>
-            <Button 
-              variant="outline" 
-              size="sm" 
-              className="bg-white text-indigo-700 border-indigo-200 hover:bg-indigo-50 hover:text-indigo-800 hover:border-indigo-300 btn-3d"
-            >
-              <Info className="h-4 w-4 mr-2" />
-              Details
-              <ArrowUpRight className="h-3 w-3 ml-1" />
-            </Button>
           </div>
         </div>
       </Card>
