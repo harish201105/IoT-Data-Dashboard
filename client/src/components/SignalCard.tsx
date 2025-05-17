@@ -54,7 +54,7 @@ const SignalCard: React.FC<SignalCardProps> = ({
       east: "https://images.pexels.com/photos/1707820/pexels-photo-1707820.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       west: "https://images.pexels.com/photos/1105517/pexels-photo-1105517.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       north: "https://images.pexels.com/photos/242160/pexels-photo-242160.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      south: "https://images.pexels.com/photos/118783/pexels-photo-118783.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+      south: "https://images.pexels.com/photos/2598761/pexels-photo-2598761.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
     };
     
     return images[direction.toLowerCase() as keyof typeof images] || 
