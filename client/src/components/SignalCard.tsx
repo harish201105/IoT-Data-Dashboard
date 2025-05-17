@@ -48,17 +48,21 @@ const SignalCard: React.FC<SignalCardProps> = ({
     );
   }
 
-  // Get the proper image for each direction
+  // Get the proper traffic signal image for each direction
   const getSignalImage = (direction: string) => {
+    // Using actual traffic signal images
     const images = {
-      east: "https://images.pexels.com/photos/1707820/pexels-photo-1707820.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      west: "https://images.pexels.com/photos/1105517/pexels-photo-1105517.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      north: "https://images.pexels.com/photos/242160/pexels-photo-242160.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      south: "https://images.pexels.com/photos/2598761/pexels-photo-2598761.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+      east: "https://images.unsplash.com/photo-1608971733266-83d8b2b0e4e0?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max",
+      west: "https://images.unsplash.com/photo-1621526554584-7667b96079d2?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max",
+      north: "https://images.unsplash.com/photo-1606486746458-e44196516324?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max",
+      south: "https://images.unsplash.com/photo-1580130775562-0ef92da028c6?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max",
+      South: "https://images.unsplash.com/photo-1572235880644-abe49871b126?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max",
+      outh: "https://images.unsplash.com/photo-1586125674857-4eb86534a27f?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max"
     };
     
-    return images[direction.toLowerCase() as keyof typeof images] || 
-      "https://images.pexels.com/photos/1707820/pexels-photo-1707820.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
+    // Default image if direction not found
+    return images[direction as keyof typeof images] || 
+      "https://images.unsplash.com/photo-1608971733266-83d8b2b0e4e0?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max";
   };
 
   // Format direction name properly
