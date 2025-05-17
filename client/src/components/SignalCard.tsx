@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Signal } from "@/types/signals";
-import { Info, Activity, MapPin, Cpu, ArrowUpRight, Clock } from "lucide-react";
+import { Info, Activity, MapPin, Cpu, ArrowUpRight, Clock, VolumeX, Volume2 } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { motion } from "framer-motion";
+import useSoundEffects from "@/hooks/useSoundEffects";
 
 interface SignalCardProps {
   direction: string;
@@ -19,6 +20,29 @@ const SignalCard: React.FC<SignalCardProps> = ({
   isLoading,
   duration 
 }) => {
+  const { playSound } = useSoundEffects();
+  const [showEasterEgg, setShowEasterEgg] = useState(false);
+  
+  // Easter egg activation on sequence of clicks
+  const [clickCount, setClickCount] = useState(0);
+  useEffect(() => {
+    if (clickCount >= 3) {
+      setShowEasterEgg(true);
+      playSound('success');
+      
+      // Reset after animation plays
+      const timer = setTimeout(() => {
+        setShowEasterEgg(false);
+        setClickCount(0);
+      }, 3000);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [clickCount, playSound]);
+  
+  const handleCardClick = () => {
+    setClickCount(prev => prev + 1);
+  };
   // Define animation variants for the loading skeleton
   const skeletonVariants = {
     pulse: {

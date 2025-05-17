@@ -520,10 +520,92 @@
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
-/* Remove the after pseudo-element that was causing the grid-like line */
+/* Enhanced hover effects for signal cards */
 .traffic-signal-card:hover {
   border-color: rgba(59, 130, 246, 0.4);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15), 0 0 15px rgba(59, 130, 246, 0.2);
+}
+
+/* Signal card tooltip container */
+.signal-tooltip-container {
+  position: relative;
+}
+
+/* Signal card info tooltip */
+.signal-tooltip {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+  pointer-events: none;
+  z-index: 100;
+}
+
+.signal-tooltip-container:hover .signal-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Custom easter egg animations */
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+.easter-egg-bounce {
+  animation: bounce 1s ease infinite;
+  animation-play-state: paused;
+}
+
+.easter-egg-bounce.active {
+  animation-play-state: running;
+}
+
+/* Drag and drop dashboard customization */
+.dashboard-draggable {
+  cursor: grab;
+  user-select: none;
+}
+
+.dashboard-draggable:active {
+  cursor: grabbing;
+}
+
+.dashboard-drop-zone {
+  border: 2px dashed transparent;
+  transition: all 0.3s ease;
+}
+
+.dashboard-drop-zone.active {
+  border-color: rgba(59, 130, 246, 0.5);
+  background-color: rgba(59, 130, 246, 0.05);
+}
+
+/* Color-blind friendly mode */
+.color-blind-friendly .traffic-light-bulb.red.active {
+  background-color: #E57373;
+  box-shadow: 0 0 30px rgba(229, 115, 115, 0.7),
+              0 0 40px rgba(229, 115, 115, 0.4);
+}
+
+.color-blind-friendly .traffic-light-bulb.yellow.active {
+  background-color: #FFF176;
+  box-shadow: 0 0 30px rgba(255, 241, 118, 0.7),
+              0 0 40px rgba(255, 241, 118, 0.4);
+}
+
+.color-blind-friendly .traffic-light-bulb.green.active {
+  background-color: #81C784;
+  box-shadow: 0 0 30px rgba(129, 199, 132, 0.7),
+              0 0 40px rgba(129, 199, 132, 0.4);
 }
 
 .dark-mode .dashboard-card {
