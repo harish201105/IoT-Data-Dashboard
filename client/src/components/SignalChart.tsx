@@ -373,9 +373,10 @@ const SignalChart: React.FC<SignalChartProps> = ({
             <YAxis yAxisId="left" {...yAxisProps} domain={[0, 100]} />
             <YAxis yAxisId="right" orientation="right" {...yAxisProps} />
             
-            {referenceLines.map((line, i) => 
-              React.cloneElement(line, { key: `ref-line-${i}`, yAxisId: "left" })
-            )}
+            {referenceLines.map((line, i) => {
+              // Only clone with permitted props
+              return React.cloneElement(line, { key: `ref-line-${i}`, yAxisId: "left" });
+            })}
             
             <Tooltip content={<CustomTooltip />} />
             <Legend wrapperStyle={{ paddingTop: '10px' }} />
