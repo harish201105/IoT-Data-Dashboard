@@ -20,13 +20,16 @@ const Footer: React.FC = () => {
               A powerful real-time dashboard for monitoring and controlling traffic signal systems. Optimize traffic flow with advanced IoT technology.
             </p>
             <div className="flex space-x-3">
-              <Button variant="outline" size="icon" className="rounded-full w-8 h-8 bg-white shadow-sm border-slate-200 hover:bg-slate-50">
-                <Github className="h-4 w-4 text-slate-700" />
-              </Button>
+              <a href="https://github.com/harish201105/IoT-Data-Dashboard" target="_blank" rel="noopener noreferrer">
+                <Button variant="outline" size="icon" className="rounded-full w-8 h-8 bg-white shadow-sm border-slate-200 hover:bg-slate-50">
+                  <Github className="h-4 w-4 text-slate-700" />
+                </Button>
+              </a>
               <Button variant="outline" size="icon" className="rounded-full w-8 h-8 bg-white shadow-sm border-slate-200 hover:bg-slate-50">
                 <Activity className="h-4 w-4 text-slate-700" />
               </Button>
             </div>
+            <p className="text-xs text-slate-500 mt-3">Developed by Harish</p>
           </div>
           
           <div>
@@ -92,9 +95,11 @@ const Footer: React.FC = () => {
             <Button variant="link" className="text-xs p-0 h-auto text-slate-500 hover:text-slate-700">
               Terms of Service
             </Button>
-            <Button variant="link" className="text-xs p-0 h-auto text-slate-500 hover:text-slate-700">
-              Contact
-            </Button>
+            <a href="mailto:harish.parthasarathy2005@gmail.com">
+              <Button variant="link" className="text-xs p-0 h-auto text-slate-500 hover:text-slate-700">
+                Contact
+              </Button>
+            </a>
           </div>
         </div>
       </div>
