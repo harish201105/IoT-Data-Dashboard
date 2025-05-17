@@ -46,6 +46,7 @@ const SignalCard: React.FC<SignalCardProps> = ({
       return () => clearTimeout(timer);
     }
   }, [clickCount, playSound]);
+  
   // Define animation variants for the loading skeleton
   const skeletonVariants = {
     pulse: {
@@ -267,7 +268,7 @@ const SignalCard: React.FC<SignalCardProps> = ({
               <p className="mt-3 font-bold text-slate-800 dark:text-slate-100 capitalize">{signal.signal}</p>
               
               {/* Detailed tooltip on hover */}
-              <div className="signal-tooltip absolute -top-52 -left-24 w-60 p-4 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 shadow-xl z-50">
+              <div className="signal-tooltip absolute -top-40 -left-24 w-60 p-4 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 shadow-xl z-50">
                 <h4 className="text-sm font-semibold mb-2">Signal Performance Details</h4>
                 <div className="space-y-2">
                   <div className="flex justify-between text-xs">
@@ -339,34 +340,26 @@ const SignalCard: React.FC<SignalCardProps> = ({
             </div>
           </div>
           
-          <div className="flex flex-col gap-2">
-            {signal.timestamp && (
-              <div className="flex items-center text-xs text-slate-500 py-1">
-                <Clock className="h-3 w-3 mr-1 text-indigo-400" />
-                <span>Updated: {new Date(signal.timestamp).toLocaleTimeString()}</span>
-              </div>
-            )}
-            
-            <div className="flex items-center justify-between pt-2 border-t border-slate-200">
-              <div className="flex items-center px-3 py-1.5 rounded-full bg-slate-50">
-                <Activity className="text-indigo-600 h-4 w-4 mr-2" />
-                <span className="text-sm font-medium text-slate-800">
-                  {signal.status === "on" ? 
-                    <span className="text-emerald-600">Active</span> : 
-                    <span className="text-red-600">Inactive</span>
-                  }
-                </span>
-              </div>
-              <Button 
-                variant="outline" 
-                size="sm" 
-                className="bg-white text-indigo-700 border-indigo-200 hover:bg-indigo-50 hover:text-indigo-800 hover:border-indigo-300 btn-3d"
-              >
-                <Info className="h-4 w-4 mr-2" />
-                Details
-                <ArrowUpRight className="h-3 w-3 ml-1" />
-              </Button>
+          <div className="flex items-center justify-between pt-2 border-t border-slate-200 dark:border-slate-700">
+            <div className="flex items-center px-3 py-1.5 rounded-full bg-slate-50 dark:bg-slate-800/50">
+              <Activity className="text-indigo-600 dark:text-indigo-400 h-4 w-4 mr-2" />
+              <span className="text-sm font-medium text-slate-800 dark:text-slate-200">
+                {signal.status === "on" ? 
+                  <span className="text-emerald-600 dark:text-emerald-400">Active</span> : 
+                  <span className="text-red-600 dark:text-red-400">Inactive</span>
+                }
+              </span>
             </div>
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="bg-white dark:bg-slate-800 text-indigo-700 dark:text-indigo-400 border-indigo-200 dark:border-indigo-800 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 hover:text-indigo-800 dark:hover:text-indigo-300 hover:border-indigo-300 dark:hover:border-indigo-700 btn-3d"
+              onMouseEnter={() => playSound('hover')}
+            >
+              <Info className="h-4 w-4 mr-2" />
+              Details
+              <ArrowUpRight className="h-3 w-3 ml-1" />
+            </Button>
           </div>
         </div>
       </Card>
