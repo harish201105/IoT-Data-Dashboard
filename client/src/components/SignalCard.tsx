@@ -165,22 +165,44 @@ const SignalCard: React.FC<SignalCardProps> = ({
 
         <div className="p-6">
           <div className="relative mb-6 overflow-hidden rounded-xl group shadow-lg">
-            <div className="traffic-signal-bg h-56 relative rounded-lg flex justify-center items-center">
+            <div 
+              className="traffic-signal-bg h-56 relative rounded-lg flex justify-center items-center"
+              onClick={handleCardClick}
+              onMouseEnter={() => playSound('hover')}
+            >
               {/* Realistic Traffic Light Component */}
               <div className="flex justify-center items-center relative z-10">
-                <div className="traffic-light-housing">
+                <div className={`traffic-light-housing ${showEasterEgg ? 'easter-egg-bounce active' : ''}`}>
                   {/* Traffic light housing */}
                   <div className="traffic-light-body">
                     {/* Red light */}
-                    <div className={`traffic-light-bulb red ${signal.signal === 'red' ? 'active' : ''}`}>
+                    <div 
+                      className={`traffic-light-bulb red ${signal.signal === 'red' ? 'active' : ''}`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        playSound('signal');
+                      }}
+                    >
                       <div className="traffic-light-glow"></div>
                     </div>
                     {/* Yellow light */}
-                    <div className={`traffic-light-bulb yellow ${signal.signal === 'yellow' ? 'active' : ''}`}>
+                    <div 
+                      className={`traffic-light-bulb yellow ${signal.signal === 'yellow' ? 'active' : ''}`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        playSound('signal');
+                      }}
+                    >
                       <div className="traffic-light-glow"></div>
                     </div>
                     {/* Green light */}
-                    <div className={`traffic-light-bulb green ${signal.signal === 'green' ? 'active' : ''}`}>
+                    <div 
+                      className={`traffic-light-bulb green ${signal.signal === 'green' ? 'active' : ''}`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        playSound('signal');
+                      }}
+                    >
                       <div className="traffic-light-glow"></div>
                     </div>
                   </div>
@@ -214,8 +236,8 @@ const SignalCard: React.FC<SignalCardProps> = ({
           </div>
           
           <div className="grid grid-cols-2 gap-6 mb-6">
-            <div className="glass-panel p-4 text-center">
-              <h4 className="text-xs font-semibold text-indigo-800 mb-3 uppercase tracking-wider">Signal Status</h4>
+            <div className="glass-panel p-4 text-center signal-tooltip-container">
+              <h4 className="text-xs font-semibold text-indigo-800 dark:text-indigo-300 mb-3 uppercase tracking-wider">Signal Status</h4>
               <motion.div 
                 animate={{
                   scale: [1, 1.05, 1],
@@ -237,28 +259,78 @@ const SignalCard: React.FC<SignalCardProps> = ({
                   "bg-signal-black"
                 }`}
                 title={`${signal.signal} signal`}
+                onMouseEnter={() => playSound('hover')}
               ></motion.div>
-              <p className="mt-3 font-bold text-slate-800 capitalize">{signal.signal}</p>
+              <p className="mt-3 font-bold text-slate-800 dark:text-slate-100 capitalize">{signal.signal}</p>
+              
+              {/* Detailed tooltip on hover */}
+              <div className="signal-tooltip absolute -top-52 -left-24 w-60 p-4 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 shadow-xl z-50">
+                <h4 className="text-sm font-semibold mb-2">Signal Performance Details</h4>
+                <div className="space-y-2">
+                  <div className="flex justify-between text-xs">
+                    <span className="text-slate-500 dark:text-slate-400">Uptime:</span>
+                    <span className="font-medium">99.8%</span>
+                  </div>
+                  <div className="flex justify-between text-xs">
+                    <span className="text-slate-500 dark:text-slate-400">Avg. Cycle:</span>
+                    <span className="font-medium">126s</span>
+                  </div>
+                  <div className="flex justify-between text-xs">
+                    <span className="text-slate-500 dark:text-slate-400">Green ratio:</span>
+                    <span className="font-medium">32%</span>
+                  </div>
+                  <div className="flex justify-between text-xs">
+                    <span className="text-slate-500 dark:text-slate-400">Health Score:</span>
+                    <span className="font-medium text-emerald-600 dark:text-emerald-400">92%</span>
+                  </div>
+                  <div className="h-1 w-full bg-slate-100 dark:bg-slate-700 rounded-full mt-1">
+                    <div className="h-full bg-emerald-500 rounded-full" style={{ width: '92%' }}></div>
+                  </div>
+                </div>
+              </div>
             </div>
             
-            <div className="glass-panel p-4 text-center relative overflow-hidden">
+            <div className="glass-panel p-4 text-center relative overflow-hidden signal-tooltip-container">
               <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-indigo-500/5"></div>
               <div className="relative">
-                <h4 className="text-xs font-semibold text-indigo-800 mb-3 uppercase tracking-wider">Duration</h4>
-                <div className="h-16 flex items-center justify-center glass-panel shadow-sm">
-                  <p className="text-2xl font-bold text-blue-700 duration-value">{duration || signal.duration}</p>
-                  <span className="text-sm text-blue-500 ml-1 font-medium">sec</span>
+                <h4 className="text-xs font-semibold text-indigo-800 dark:text-indigo-300 mb-3 uppercase tracking-wider">Duration</h4>
+                <div className="h-16 flex items-center justify-center glass-panel shadow-sm" onMouseEnter={() => playSound('hover')}>
+                  <p className="text-2xl font-bold text-blue-700 dark:text-blue-400 duration-value">{duration || signal.duration}</p>
+                  <span className="text-sm text-blue-500 dark:text-blue-300 ml-1 font-medium">sec</span>
                 </div>
                 <div className="mt-2 flex justify-between text-[10px] text-slate-500">
                   <span>10</span>
                   <span>60</span>
                   <span>120</span>
                 </div>
-                <div className="h-1.5 bg-slate-200 rounded-full mt-1">
+                <div className="h-1.5 bg-slate-200 dark:bg-slate-700 rounded-full mt-1">
                   <div 
                     className="h-full bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full transition-all duration-500" 
                     style={{ width: `${Math.min(100, Math.max(0, (parseInt(duration || signal.duration) - 10) / (120 - 10) * 100))}%` }}
                   ></div>
+                </div>
+              </div>
+              
+              {/* Duration tooltip */}
+              <div className="signal-tooltip absolute -top-36 -right-24 w-60 p-4 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 shadow-xl z-50">
+                <h4 className="text-sm font-semibold mb-2">Duration Information</h4>
+                <div className="space-y-2">
+                  <div className="flex justify-between text-xs">
+                    <span className="text-slate-500 dark:text-slate-400">Current:</span>
+                    <span className="font-medium">{duration || signal.duration}s</span>
+                  </div>
+                  <div className="flex justify-between text-xs">
+                    <span className="text-slate-500 dark:text-slate-400">Min Duration:</span>
+                    <span className="font-medium">10s</span>
+                  </div>
+                  <div className="flex justify-between text-xs">
+                    <span className="text-slate-500 dark:text-slate-400">Max Duration:</span>
+                    <span className="font-medium">120s</span>
+                  </div>
+                  <div className="flex justify-between text-xs">
+                    <span className="text-slate-500 dark:text-slate-400">Optimum:</span>
+                    <span className="font-medium text-emerald-600 dark:text-emerald-400">45s - 65s</span>
+                  </div>
                 </div>
               </div>
             </div>

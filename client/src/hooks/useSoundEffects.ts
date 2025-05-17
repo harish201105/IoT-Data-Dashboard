@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Howl } from 'howler';
 
 type SoundType = 'hover' | 'signal' | 'notification' | 'success' | 'error';
@@ -7,84 +7,66 @@ interface SoundMap {
   [key: string]: Howl;
 }
 
+/**
+ * Custom hook for managing sound effects throughout the application
+ */
 export function useSoundEffects() {
-  const soundsRef = useRef<SoundMap | null>(null);
-  
+  const [sounds, setSounds] = useState<SoundMap>({});
+  const [isMuted, setIsMuted] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  // Initialize sound effects
   useEffect(() => {
-    // Only create the sounds once
-    if (!soundsRef.current) {
-      soundsRef.current = {
-        hover: new Howl({
-          src: ['/sounds/hover.mp3'],
-          volume: 0.2,
-          preload: true,
-          html5: true
-        }),
-        signal: new Howl({
-          src: ['/sounds/signal.mp3'],
-          volume: 0.3,
-          preload: true,
-          html5: true
-        }),
-        notification: new Howl({
-          src: ['/sounds/notification.mp3'],
-          volume: 0.4,
-          preload: true,
-          html5: true
-        }),
-        success: new Howl({
-          src: ['/sounds/success.mp3'],
-          volume: 0.4,
-          preload: true,
-          html5: true
-        }),
-        error: new Howl({
-          src: ['/sounds/error.mp3'],
-          volume: 0.4,
-          preload: true,
-          html5: true
-        })
-      };
-    }
+    const soundMap: SoundMap = {
+      hover: new Howl({
+        src: ['/sounds/hover.mp3'],
+        volume: 0.3,
+        preload: true
+      }),
+      signal: new Howl({
+        src: ['/sounds/signal.mp3'],
+        volume: 0.4,
+        preload: true
+      }),
+      notification: new Howl({
+        src: ['/sounds/notification.mp3'],
+        volume: 0.5,
+        preload: true
+      }),
+      success: new Howl({
+        src: ['/sounds/success.mp3'],
+        volume: 0.5,
+        preload: true
+      }),
+      error: new Howl({
+        src: ['/sounds/error.mp3'],
+        volume: 0.5,
+        preload: true
+      })
+    };
     
-    // Clean up sounds when component unmounts
+    setSounds(soundMap);
+    setIsLoaded(true);
+    
+    // Cleanup sounds on unmount
     return () => {
-      if (soundsRef.current) {
-        Object.values(soundsRef.current).forEach(sound => {
-          sound.unload();
-        });
-      }
+      Object.values(soundMap).forEach(sound => sound.unload());
     };
   }, []);
-  
-  // Function to play sound
-  const playSound = (type: SoundType) => {
-    // Skip if sounds aren't loaded or if user has disabled sound
-    if (!soundsRef.current) return;
-    
-    // Get user sound preference from localStorage
-    const soundEnabled = localStorage.getItem('soundEnabled') !== 'false';
-    if (!soundEnabled) return;
-    
-    const sound = soundsRef.current[type];
+
+  // Play a sound effect
+  const playSound = useCallback((type: SoundType) => {
+    if (isMuted || !isLoaded) return;
+    const sound = sounds[type];
     if (sound) {
       sound.play();
     }
-  };
-  
-  // Function to toggle sound on/off
-  const toggleSound = () => {
-    const currentSetting = localStorage.getItem('soundEnabled') !== 'false';
-    localStorage.setItem('soundEnabled', (!currentSetting).toString());
-    return !currentSetting;
-  };
-  
-  // Function to check if sound is enabled
-  const isSoundEnabled = () => {
-    return localStorage.getItem('soundEnabled') !== 'false';
-  };
-  
-  return { playSound, toggleSound, isSoundEnabled };
-}
+  }, [sounds, isMuted, isLoaded]);
 
-export default useSoundEffects;
+  // Toggle mute status
+  const toggleMute = useCallback(() => {
+    setIsMuted(prev => !prev);
+  }, []);
+
+  return { playSound, toggleMute, isMuted, isLoaded };
+}
