@@ -115,8 +115,13 @@ const SignalCard: React.FC<SignalCardProps> = ({
       animate="animate"
       variants={cardVariants}
       className="signal-card-fade-in"
+      whileHover={{ 
+        scale: 1.02,
+        boxShadow: "0 20px 30px rgba(0, 0, 0, 0.1)",
+        transition: { duration: 0.3, ease: "easeOut" }
+      }}
     >
-      <Card className="premium-card shine-effect">
+      <Card className="premium-card shine-effect traffic-signal-card">
         <div className={`premium-card-header rounded-t-xl p-4 flex justify-between items-center`}>
           <div className="flex items-center">
             <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center mr-3">
