@@ -1,18 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { TrafficCone, Clock, Wifi, WifiOff, Settings } from "lucide-react";
 import { motion } from "framer-motion";
 import ThemeToggle from "./Dashboard/ThemeToggle";
 import UserPreferences from "./Dashboard/UserPreferences";
 import { Button } from "./ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-  DialogFooter,
-  DialogClose
-} from "@/components/ui/dialog";
+import { Card } from "./ui/card";
+import { AnimatePresence } from "framer-motion";
+
+
 
 interface HeaderProps {
   isOnline: boolean;
@@ -96,38 +91,61 @@ const Header: React.FC<HeaderProps> = ({
           {/* Theme Toggle */}
           <ThemeToggle isDarkMode={isDarkMode} toggleTheme={toggleDarkMode} />
           
-          {/* Settings Dialog */}
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button variant="outline" size="icon" className="h-9 w-9">
-                <Settings className="h-4 w-4" />
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
-              <DialogHeader>
-                <DialogTitle>Dashboard Settings</DialogTitle>
-              </DialogHeader>
-              <div className="py-4">
-                <UserPreferences 
-                  isDarkMode={isDarkMode}
-                  setIsDarkMode={toggleDarkMode}
-                  refreshInterval={refreshInterval / 1000} // Convert to seconds
-                  setRefreshInterval={(value) => setRefreshInterval(value * 1000)}
-                  chartType={chartType}
-                  setChartType={setChartType}
-                  showNotifications={showNotifications}
-                  setShowNotifications={setShowNotifications}
-                  dashboardLayout={dashboardLayout}
-                  setDashboardLayout={setDashboardLayout}
-                />
-              </div>
-              <DialogFooter>
-                <DialogClose asChild>
-                  <Button type="button">Close Settings</Button>
-                </DialogClose>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
+          {/* Settings Icon - Direct UserPreferences */}
+          <div className="relative">
+            <Button 
+              variant="outline" 
+              size="icon" 
+              className="h-9 w-9"
+              onClick={() => {
+                const prefPanel = document.getElementById('userPreferencesPanel');
+                if (prefPanel) {
+                  const displayStyle = window.getComputedStyle(prefPanel).display;
+                  prefPanel.style.display = displayStyle === 'none' ? 'block' : 'none';
+                }
+              }}
+            >
+              <Settings className="h-4 w-4" />
+            </Button>
+            
+            <div 
+              id="userPreferencesPanel" 
+              className="absolute right-0 mt-2 z-50 w-80 hidden"
+              style={{ boxShadow: '0 10px 25px rgba(0, 0, 0, 0.1)' }}
+            >
+              <Card className={`p-5 ${isDarkMode ? 'bg-slate-800 text-slate-200' : 'bg-white'}`}>
+                <div className="flex justify-between items-center mb-4">
+                  <h3 className="text-lg font-bold">Dashboard Preferences</h3>
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    onClick={() => {
+                      const prefPanel = document.getElementById('userPreferencesPanel');
+                      if (prefPanel) prefPanel.style.display = 'none';
+                    }} 
+                    className="h-8 w-8 p-0"
+                  >
+                    &times;
+                  </Button>
+                </div>
+                
+                <div className="space-y-5">
+                  <UserPreferences 
+                    isDarkMode={isDarkMode}
+                    setIsDarkMode={toggleDarkMode}
+                    refreshInterval={refreshInterval / 1000}
+                    setRefreshInterval={(value: number) => setRefreshInterval(value * 1000)}
+                    chartType={chartType}
+                    setChartType={setChartType}
+                    showNotifications={showNotifications}
+                    setShowNotifications={setShowNotifications}
+                    dashboardLayout={dashboardLayout}
+                    setDashboardLayout={setDashboardLayout}
+                  />
+                </div>
+              </Card>
+            </div>
+          </div>
         </div>
       </div>
     </motion.header>
