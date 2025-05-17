@@ -125,6 +125,99 @@ const SignalPerformanceHeatMap: React.FC<SignalPerformanceHeatMapProps> = ({
     return `${direction} signal is performing optimally. No action needed.`;
   };
 
+  // Render loading state if no scores yet
+  const renderLoadingState = () => (
+    <div className="p-8 text-center">
+      <div className="animate-pulse flex flex-col items-center justify-center">
+        <Thermometer className="h-10 w-10 text-slate-300 dark:text-slate-600 mb-4" />
+        <p className="text-slate-500 dark:text-slate-400">Collecting performance data...</p>
+        <p className="text-xs text-slate-400 dark:text-slate-500 mt-2">
+          Performance metrics will appear after collecting sufficient signal data
+        </p>
+      </div>
+    </div>
+  );
+
+  // Render scores grid
+  const renderScoresGrid = () => (
+    <div className="grid grid-cols-3 gap-2 mb-4">
+      {Object.entries(performanceScores).map(([direction, score]) => (
+        <motion.div
+          key={direction}
+          className={`p-4 rounded-lg ${getCellColor(score)} relative cursor-help`}
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.3 }}
+          onMouseEnter={() => setHoverInfo({
+            direction,
+            score,
+            details: getInsightMessage(direction, score)
+          })}
+          onMouseLeave={() => setHoverInfo(null)}
+        >
+          <div className="text-white">
+            <div className="text-sm font-bold mb-1 capitalize">{direction}</div>
+            <div className="text-2xl font-bold">{score}%</div>
+            <div className="text-xs mt-1 opacity-80">{getPerformanceCategory(score)}</div>
+          </div>
+          
+          {score < 40 && (
+            <div className="absolute top-2 right-2">
+              <AlertTriangle className="h-4 w-4 text-white" />
+            </div>
+          )}
+        </motion.div>
+      ))}
+    </div>
+  );
+
+  // Render insight tooltip
+  const renderInsightTooltip = () => {
+    if (!hoverInfo) return null;
+    
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="p-3 bg-white shadow-lg rounded-lg border border-slate-200 mb-3"
+      >
+        <div className="flex items-start">
+          <Info className="h-4 w-4 text-indigo-500 mr-2 mt-0.5" />
+          <div>
+            <div className="text-sm font-bold capitalize">{hoverInfo.direction} Signal Insight</div>
+            <div className="text-xs text-slate-600 mt-1">{hoverInfo.details}</div>
+          </div>
+        </div>
+      </motion.div>
+    );
+  };
+
+  // Render color legend
+  const renderColorLegend = () => (
+    <div className="flex items-center justify-between text-xs text-slate-500 pt-2 border-t border-slate-200">
+      <div className="flex items-center gap-1">
+        <div className="w-3 h-3 bg-red-500 rounded-sm"></div>
+        <span>Critical</span>
+      </div>
+      <div className="flex items-center gap-1">
+        <div className="w-3 h-3 bg-orange-400 rounded-sm"></div>
+        <span>Poor</span>
+      </div>
+      <div className="flex items-center gap-1">
+        <div className="w-3 h-3 bg-yellow-300 rounded-sm"></div>
+        <span>Average</span>
+      </div>
+      <div className="flex items-center gap-1">
+        <div className="w-3 h-3 bg-green-300 rounded-sm"></div>
+        <span>Good</span>
+      </div>
+      <div className="flex items-center gap-1">
+        <div className="w-3 h-3 bg-green-500 rounded-sm"></div>
+        <span>Excellent</span>
+      </div>
+    </div>
+  );
+
   return (
     <Card className="p-5 relative">
       <div className="flex items-center mb-4">
@@ -132,86 +225,13 @@ const SignalPerformanceHeatMap: React.FC<SignalPerformanceHeatMapProps> = ({
         <h3 className="text-lg font-bold">Signal Performance Heat Map</h3>
       </div>
       
-      {Object.keys(performanceScores).length === 0 ? (
-        <div className="p-8 text-center">
-          <div className="animate-pulse flex flex-col items-center justify-center">
-            <Thermometer className="h-10 w-10 text-slate-300 dark:text-slate-600 mb-4" />
-            <p className="text-slate-500 dark:text-slate-400">Collecting performance data...</p>
-            <p className="text-xs text-slate-400 dark:text-slate-500 mt-2">
-              Performance metrics will appear after collecting sufficient signal data
-            </p>
-          </div>
-        </div>
-      ) : (
-        <div className="grid grid-cols-3 gap-2 mb-4">
-          {Object.entries(performanceScores).map(([direction, score]) => (
-          <motion.div
-            key={direction}
-            className={`p-4 rounded-lg ${getCellColor(score)} relative cursor-help`}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.3 }}
-            onMouseEnter={() => setHoverInfo({
-              direction,
-              score,
-              details: getInsightMessage(direction, score)
-            })}
-            onMouseLeave={() => setHoverInfo(null)}
-          >
-            <div className="text-white">
-              <div className="text-sm font-bold mb-1 capitalize">{direction}</div>
-              <div className="text-2xl font-bold">{score}%</div>
-              <div className="text-xs mt-1 opacity-80">{getPerformanceCategory(score)}</div>
-            </div>
-            
-            {score < 40 && (
-              <div className="absolute top-2 right-2">
-                <AlertTriangle className="h-4 w-4 text-white" />
-              </div>
-            )}
-          </motion.div>
-        ))}
-      </div>
-      )}
+      {Object.keys(performanceScores).length === 0 
+        ? renderLoadingState() 
+        : renderScoresGrid()
+      }
       
-      {hoverInfo && (
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="p-3 bg-white shadow-lg rounded-lg border border-slate-200 mb-3"
-        >
-          <div className="flex items-start">
-            <Info className="h-4 w-4 text-indigo-500 mr-2 mt-0.5" />
-            <div>
-              <div className="text-sm font-bold capitalize">{hoverInfo.direction} Signal Insight</div>
-              <div className="text-xs text-slate-600 mt-1">{hoverInfo.details}</div>
-            </div>
-          </div>
-        </motion.div>
-      )}
-      
-      <div className="flex items-center justify-between text-xs text-slate-500 pt-2 border-t border-slate-200">
-        <div className="flex items-center gap-1">
-          <div className="w-3 h-3 bg-red-500 rounded-sm"></div>
-          <span>Critical</span>
-        </div>
-        <div className="flex items-center gap-1">
-          <div className="w-3 h-3 bg-orange-400 rounded-sm"></div>
-          <span>Poor</span>
-        </div>
-        <div className="flex items-center gap-1">
-          <div className="w-3 h-3 bg-yellow-300 rounded-sm"></div>
-          <span>Average</span>
-        </div>
-        <div className="flex items-center gap-1">
-          <div className="w-3 h-3 bg-green-300 rounded-sm"></div>
-          <span>Good</span>
-        </div>
-        <div className="flex items-center gap-1">
-          <div className="w-3 h-3 bg-green-500 rounded-sm"></div>
-          <span>Excellent</span>
-        </div>
-      </div>
+      {renderInsightTooltip()}
+      {renderColorLegend()}
     </Card>
   );
 };
