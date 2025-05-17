@@ -6,6 +6,8 @@ import UserPreferences from "./Dashboard/UserPreferences";
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
 import { AnimatePresence } from "framer-motion";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover"
+import { UserPreferencesWrapper } from "./Dashboard/UserPreferences"
 
 
 
@@ -52,7 +54,7 @@ const Header: React.FC<HeaderProps> = ({
           </div>
           <h1 className="text-xl sm:text-2xl font-bold gradient-text">Traffic Signal IoT Dashboard</h1>
         </div>
-        
+
         <div className="flex flex-wrap items-center gap-4">
           <motion.div 
             initial={{ scale: 0.9 }}
@@ -75,7 +77,7 @@ const Header: React.FC<HeaderProps> = ({
               {isOnline ? 'System Online' : 'System Offline'}
             </span>
           </motion.div>
-          
+
           <motion.div 
             initial={{ scale: 0.9 }}
             animate={{ scale: 1 }}
@@ -87,10 +89,10 @@ const Header: React.FC<HeaderProps> = ({
               Last updated: <span className="text-blue-600 dark:text-blue-400">{lastUpdated}</span>
             </span>
           </motion.div>
-          
+
           {/* Theme Toggle */}
           <ThemeToggle isDarkMode={isDarkMode} toggleTheme={toggleDarkMode} />
-          
+
           {/* Settings Icon - Direct UserPreferences */}
           <div className="relative">
             <Button 
@@ -107,7 +109,7 @@ const Header: React.FC<HeaderProps> = ({
             >
               <Settings className="h-4 w-4" />
             </Button>
-            
+
             <div 
               id="userPreferencesPanel" 
               className="absolute right-0 mt-2 z-50 w-80 hidden"
@@ -128,7 +130,7 @@ const Header: React.FC<HeaderProps> = ({
                     &times;
                   </Button>
                 </div>
-                
+
                 <div className="space-y-5">
                   <UserPreferences 
                     isDarkMode={isDarkMode}
