@@ -48,21 +48,19 @@ const SignalCard: React.FC<SignalCardProps> = ({
     );
   }
 
-  // Get the proper traffic signal image for each direction
-  const getSignalImage = (direction: string) => {
-    // Using actual traffic signal images
-    const images = {
-      east: "https://images.unsplash.com/photo-1608971733266-83d8b2b0e4e0?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max",
-      west: "https://images.unsplash.com/photo-1621526554584-7667b96079d2?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max",
-      north: "https://images.unsplash.com/photo-1606486746458-e44196516324?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max",
-      south: "https://images.unsplash.com/photo-1580130775562-0ef92da028c6?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max",
-      South: "https://images.unsplash.com/photo-1572235880644-abe49871b126?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max",
-      outh: "https://images.unsplash.com/photo-1586125674857-4eb86534a27f?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max"
+  // Generate directional signal light colors using signal value
+  const getSignalColor = (direction: string, signalValue: string) => {
+    // Custom gradient based on direction
+    const colors = {
+      east: 'from-blue-500 to-blue-600',
+      west: 'from-purple-500 to-purple-600',
+      north: 'from-emerald-500 to-emerald-600',
+      south: 'from-amber-500 to-amber-600',
+      South: 'from-red-500 to-red-600',
+      outh: 'from-gray-700 to-gray-800'
     };
     
-    // Default image if direction not found
-    return images[direction as keyof typeof images] || 
-      "https://images.unsplash.com/photo-1608971733266-83d8b2b0e4e0?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max";
+    return colors[direction as keyof typeof colors] || 'from-blue-500 to-blue-600';
   };
 
   // Format direction name properly
@@ -84,7 +82,7 @@ const SignalCard: React.FC<SignalCardProps> = ({
       className="signal-card-fade-in"
     >
       <Card className="premium-card shine-effect">
-        <div className="premium-card-header rounded-t-xl p-4 flex justify-between items-center">
+        <div className={`premium-card-header rounded-t-xl p-4 flex justify-between items-center`}>
           <div className="flex items-center">
             <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center mr-3">
               <MapPin className="h-4 w-4 text-white" />
@@ -103,19 +101,28 @@ const SignalCard: React.FC<SignalCardProps> = ({
 
         <div className="p-6">
           <div className="relative mb-6 overflow-hidden rounded-xl group shadow-lg">
-            <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl blur-sm opacity-50"></div>
-            <div className="relative">
-              <img 
-                src={getSignalImage(direction)} 
-                alt={`Traffic signal at ${formatDirection(direction)} intersection`} 
-                className="w-full h-40 object-cover rounded-lg transition-transform duration-700 ease-in-out group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <div className="absolute bottom-0 left-0 p-4 text-white opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0">
-                <div className="font-bold text-lg">{formatDirection(direction)} Intersection</div>
-                <div className="text-xs text-white/80 flex items-center">
-                  <Cpu className="h-3 w-3 mr-1" />
-                  <span>ID: {direction.toUpperCase()}-{Math.floor(Math.random() * 1000)}</span>
+            <div className={`h-40 bg-gradient-to-r ${getSignalColor(direction, signal.signal)} rounded-lg relative flex items-center justify-center transition-all duration-300 group-hover:scale-[1.02]`}>
+              <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzRoLTJ2LTJoMnYyem0wLTRoLTJ2LTJoMnYyem0wLTR2LTJoLTJ2LTJoNHY0aC0yem0tNCAwdi0yaC0ydi0yaDR2NGgtMnptLTQgOGgtMnYtMmgydjJ6bTAtNGgtMnYtMmgydjJ6bTAtNGgtMnYtMmgydjJ6bTAtNGgtMnYtMmgydjJ6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-10"></div>
+              <div className="text-center text-white z-10">
+                <div className={`w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-3 bg-white/20 backdrop-blur-sm border border-white/30`}>
+                  <div className={`w-12 h-12 rounded-full ${
+                    signal.signal === "red" ? "bg-signal-red" :
+                    signal.signal === "green" ? "bg-signal-green" :
+                    signal.signal === "yellow" ? "bg-signal-yellow" :
+                    "bg-signal-black"
+                  }`}></div>
+                </div>
+                <h3 className="text-xl font-bold tracking-tight">{formatDirection(direction)}</h3>
+                <p className="text-white/80 text-sm mt-1">Traffic Signal</p>
+              </div>
+              
+              <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/60 to-transparent">
+                <div className="flex items-center justify-between text-white/90">
+                  <div className="flex items-center">
+                    <Cpu className="h-3 w-3 mr-1" />
+                    <span className="text-xs">ID: {direction.toUpperCase()}-{Math.floor(Math.random() * 1000)}</span>
+                  </div>
+                  <span className="text-xs">{signal.signal.toUpperCase()}</span>
                 </div>
               </div>
             </div>
