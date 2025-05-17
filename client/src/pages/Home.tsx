@@ -85,9 +85,9 @@ const Home: React.FC = () => {
   const activeSignals = data ? 
     Object.values(data).filter(signal => signal.status === "on").length : 0;
   
-  // Count error states (black signals are considered errors)
+  // Count error states (inactive signals and error conditions)
   const errorStates = data ? 
-    Object.values(data).filter(signal => signal.signal === "black").length : 0;
+    Object.values(data).filter(signal => signal.status === "off" || signal.signal === "black").length : 0;
   
   // Calculate average duration
   const calculateAvgDuration = () => {
