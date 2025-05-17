@@ -55,34 +55,48 @@ const Home: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-gradient-to-br from-slate-50 via-slate-50 to-blue-50">
       <Header isOnline={!isError} lastUpdated={lastUpdated} />
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow">
         {isError ? (
           <ErrorDisplay errorMessage={error as string} onRetry={refetch} />
         ) : (
-          <>
-            <SystemOverview 
-              isLoading={isLoading}
-              activeSignals={activeSignals}
-              errorStates={errorStates}
-              avgDuration={duration || calculateAvgDuration()}
-              lastUpdateTime={lastUpdated}
-              onRefresh={handleRefresh}
-            />
+          <div className="space-y-8">
+            <div className="relative">
+              <div className="absolute -top-6 -left-6 w-24 h-24 bg-blue-500/10 rounded-full blur-2xl"></div>
+              <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-indigo-500/10 rounded-full blur-3xl"></div>
+              
+              <SystemOverview 
+                isLoading={isLoading}
+                activeSignals={activeSignals}
+                errorStates={errorStates}
+                avgDuration={duration || calculateAvgDuration()}
+                lastUpdateTime={lastUpdated}
+                onRefresh={handleRefresh}
+              />
+            </div>
             
-            <SignalCards 
-              signals={data || {}} 
-              isLoading={isLoading} 
-              duration={duration}
-            />
+            <div className="relative">
+              <div className="absolute top-1/2 -translate-y-1/2 -left-8 w-16 h-64 bg-green-500/10 rounded-full blur-2xl"></div>
+              <div className="absolute top-1/2 -translate-y-1/2 -right-8 w-16 h-64 bg-yellow-500/10 rounded-full blur-2xl"></div>
+              
+              <SignalCards 
+                signals={data || {}} 
+                isLoading={isLoading} 
+                duration={duration}
+              />
+            </div>
             
-            <DurationControlPanel 
-              duration={duration} 
-              onUpdateDuration={handleDurationUpdate} 
-            />
-          </>
+            <div className="relative">
+              <div className="absolute -bottom-8 left-1/3 w-40 h-24 bg-purple-500/10 rounded-full blur-3xl"></div>
+              
+              <DurationControlPanel 
+                duration={duration} 
+                onUpdateDuration={handleDurationUpdate} 
+              />
+            </div>
+          </div>
         )}
       </main>
       
