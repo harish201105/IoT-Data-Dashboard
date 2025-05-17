@@ -271,27 +271,6 @@ const SignalChart: React.FC<SignalChartProps> = ({
       axisLine: { stroke: '#cbd5e1' },
       tickLine: { stroke: '#cbd5e1' }
     };
-    
-    // Create reference lines with proper parameters
-    const createReferenceLine = (y: number, stroke: string, label: string, position: string) => {
-      return {
-        y,
-        stroke,
-        strokeDasharray: "3 3",
-        label: {
-          value: label,
-          position: position,
-          fill: stroke,
-          fontSize: 12
-        }
-      };
-    };
-    
-    // Define reference lines as configuration objects
-    const referenceLineConfigs = [
-      createReferenceLine(50, "#f59e0b", "Yellow Signal", "insideBottomRight"),
-      createReferenceLine(100, "#ef4444", "Red Signal", "insideTopRight")
-    ];
 
     // Chart specific render functions
     switch (activeTab) {
@@ -309,7 +288,18 @@ const SignalChart: React.FC<SignalChartProps> = ({
             <CartesianGrid {...gridProps} />
             <XAxis {...xAxisProps} />
             <YAxis {...yAxisProps} domain={[0, 100]} />
-            {referenceLines}
+            <ReferenceLine 
+              y={50} 
+              stroke="#f59e0b" 
+              strokeDasharray="3 3" 
+              label={{ value: 'Yellow Signal', position: 'insideBottomRight', fill: '#f59e0b', fontSize: 12 }}
+            />
+            <ReferenceLine 
+              y={100} 
+              stroke="#ef4444" 
+              strokeDasharray="3 3" 
+              label={{ value: 'Red Signal', position: 'insideTopRight', fill: '#ef4444', fontSize: 12 }}
+            />
             <Tooltip content={<CustomTooltip />} />
             <Legend wrapperStyle={{ paddingTop: '10px' }} />
             
@@ -343,7 +333,18 @@ const SignalChart: React.FC<SignalChartProps> = ({
             <CartesianGrid {...gridProps} />
             <XAxis {...xAxisProps} />
             <YAxis {...yAxisProps} domain={[0, 100]} />
-            {referenceLines}
+            <ReferenceLine 
+              y={50} 
+              stroke="#f59e0b" 
+              strokeDasharray="3 3" 
+              label={{ value: 'Yellow Signal', position: 'insideBottomRight', fill: '#f59e0b', fontSize: 12 }}
+            />
+            <ReferenceLine 
+              y={100} 
+              stroke="#ef4444" 
+              strokeDasharray="3 3" 
+              label={{ value: 'Red Signal', position: 'insideTopRight', fill: '#ef4444', fontSize: 12 }}
+            />
             <Tooltip content={<CustomTooltip />} />
             <Legend wrapperStyle={{ paddingTop: '10px' }} />
             
@@ -388,14 +389,20 @@ const SignalChart: React.FC<SignalChartProps> = ({
             <YAxis yAxisId="left" {...yAxisProps} domain={[0, 100]} />
             <YAxis yAxisId="right" orientation="right" {...yAxisProps} />
             
-            {/* Render reference lines from configs */}
-            {referenceLineConfigs.map((config, i) => (
-              <ReferenceLine 
-                key={`ref-line-${i}`} 
-                yAxisId="left"
-                {...config}
-              />
-            ))}
+            <ReferenceLine 
+              y={50} 
+              yAxisId="left"
+              stroke="#f59e0b" 
+              strokeDasharray="3 3" 
+              label={{ value: 'Yellow Signal', position: 'insideBottomRight', fill: '#f59e0b', fontSize: 12 }}
+            />
+            <ReferenceLine 
+              y={100} 
+              yAxisId="left"
+              stroke="#ef4444" 
+              strokeDasharray="3 3" 
+              label={{ value: 'Red Signal', position: 'insideTopRight', fill: '#ef4444', fontSize: 12 }}
+            />
             
             <Tooltip content={<CustomTooltip />} />
             <Legend wrapperStyle={{ paddingTop: '10px' }} />

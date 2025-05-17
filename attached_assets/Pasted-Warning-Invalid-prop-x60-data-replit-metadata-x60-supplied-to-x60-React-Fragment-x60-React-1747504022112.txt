@@ -1,0 +1,31 @@
+Warning: Invalid prop &#x60;data-replit-metadata&#x60; supplied to &#x60;React.Fragment&#x60;. React.Fragment can only have &#x60;key&#x60; and &#x60;children&#x60; props.
+    at SignalChart (https://c36f0913-970e-408e-973d-52bf3301bccd-00-d5pnc2tauz69.janeway.replit.dev/src/components/SignalChart.tsx?t=1747503269613:38:3)
+    at div
+    at div
+    at main
+    at div
+    at Home (https://c36f0913-970e-408e-973d-52bf3301bccd-00-d5pnc2tauz69.janeway.replit.dev/src/pages/Home.tsx?t=1747503269613:29:56)
+    at Route (https://c36f0913-970e-408e-973d-52bf3301bccd-00-d5pnc2tauz69.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=3f6cdf64:323:16)
+    at Switch (https://c36f0913-970e-408e-973d-52bf3301bccd-00-d5pnc2tauz69.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=3f6cdf64:379:17)
+    at Router
+    at Provider (https://c36f0913-970e-408e-973d-52bf3301bccd-00-d5pnc2tauz69.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-DN2NQJT6.js?v=3f6cdf64:42:15)
+    at TooltipProvider (https://c36f0913-970e-408e-973d-52bf3301bccd-00-d5pnc2tauz69.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-tooltip.js?v=3f6cdf64:2251:5)
+    at QueryClientProvider (https://c36f0913-970e-408e-973d-52bf3301bccd-00-d5pnc2tauz69.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=3f6cdf64:2805:3)
+    at App
+at SignalChart (https://c36f0913-970e-408e-973d-52bf3301bccd-00-d5pnc2tauz69.janeway.replit.dev/src/components/SignalChart.tsx?t=1747503269613:38:3)
+at div
+at div
+at main
+at div
+at Home (https://c36f0913-970e-408e-973d-52bf3301bccd-00-d5pnc2tauz69.janeway.replit.dev/src/pages/Home.tsx?t=1747503269613:29:56)
+at Route (https://c36f0913-970e-408e-973d-52bf3301bccd-00-d5pnc2tauz69.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=3f6cdf64:323:16)
+at Switch (https://c36f0913-970e-408e-973d-52bf3301bccd-00-d5pnc2tauz69.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/wouter.js?v=3f6cdf64:379:17)
+at Router
+at Provider (https://c36f0913-970e-408e-973d-52bf3301bccd-00-d5pnc2tauz69.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/chunk-DN2NQJT6.js?v=3f6cdf64:42:15)
+at TooltipProvider (https://c36f0913-970e-408e-973d-52bf3301bccd-00-d5pnc2tauz69.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@radix-ui_react-tooltip.js?v=3f6cdf64:2251:5)
+at QueryClientProvider (https://c36f0913-970e-408e-973d-52bf3301bccd-00-d5pnc2tauz69.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=3f6cdf64:2805:3)
+at App
+at t.value (https://c36f0913-970e-408e-973d-52bf3301bccd-00-d5pnc2tauz69.janeway.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:17465)
+at new t (https://c36f0913-970e-408e-973d-52bf3301bccd-00-d5pnc2tauz69.janeway.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:12630)
+at t.value (https://c36f0913-970e-408e-973d-52bf3301bccd-00-d5pnc2tauz69.janeway.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:32766)
+at https://c36f0913-970e-408e-973d-52bf3301bccd-00-d5pnc2tauz69.janeway.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:34400
