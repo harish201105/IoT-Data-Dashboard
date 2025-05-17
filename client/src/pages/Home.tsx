@@ -106,7 +106,8 @@ const Home: React.FC = () => {
     }`}>
       <Header isOnline={!error} lastUpdated={lastUpdated} />
       
-      <div className="fixed top-4 right-4 z-50 flex items-center space-x-2">
+      {/* User control panel - positioned away from header content */}
+      <div className="fixed top-20 right-6 z-50 flex items-center space-x-3">
         <ThemeToggle isDarkMode={isDarkMode} toggleTheme={toggleDarkMode} />
         <UserPreferences 
           isDarkMode={isDarkMode}
@@ -122,9 +123,11 @@ const Home: React.FC = () => {
         />
       </div>
       
-      {/* Notification System */}
+      {/* Notification System - positioned to avoid overlapping with other elements */}
       {showNotifications && data && previousData && (
-        <NotificationSystem signalData={data} previousData={previousData} />
+        <div className="fixed top-24 right-6 z-40 max-w-sm">
+          <NotificationSystem signalData={data} previousData={previousData} />
+        </div>
       )}
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow">
@@ -226,17 +229,17 @@ const Home: React.FC = () => {
               </motion.div>
             )}
             
-            {/* Real-time status indicator */}
-            <div className="fixed bottom-4 left-4 flex items-center space-x-2 z-50">
+            {/* Real-time status indicator - repositioned and styled better */}
+            <div className="fixed bottom-6 left-1/2 -translate-x-1/2 flex items-center space-x-3 z-50 px-4 py-2 rounded-full shadow-lg bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm border border-slate-200 dark:border-slate-700">
               <div className={`h-3 w-3 rounded-full ${isPolling ? 'bg-green-500 animate-pulse' : 'bg-red-500'}`}></div>
               <p className="text-xs font-medium">
                 {isPolling ? 'Real-time updates active' : 'Updates paused'}
               </p>
               <button 
                 onClick={isPolling ? stopPolling : startPolling}
-                className={`text-xs px-2 py-1 rounded-full ${
+                className={`text-xs px-3 py-1 rounded-full transition-all duration-200 ${
                   isPolling 
-                    ? 'bg-slate-200 text-slate-800 hover:bg-slate-300' 
+                    ? 'bg-slate-200 text-slate-800 hover:bg-slate-300 dark:bg-slate-700 dark:text-slate-200 dark:hover:bg-slate-600' 
                     : 'bg-blue-500 text-white hover:bg-blue-600'
                 }`}
               >

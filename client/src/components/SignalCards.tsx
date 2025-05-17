@@ -29,18 +29,25 @@ const SignalCards: React.FC<SignalCardsProps> = ({ signals, isLoading, duration 
   
   return (
     <div className="mb-8">
-      <div className="flex items-center mb-6">
-        <div className="bg-gradient-to-r from-indigo-600 to-indigo-700 p-2 rounded-lg shadow-md mr-3">
-          <MapPin className="h-5 w-5 text-white" />
+      <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center">
+          <div className="bg-gradient-to-r from-indigo-600 to-indigo-700 p-2 rounded-lg shadow-md mr-3">
+            <MapPin className="h-5 w-5 text-white" />
+          </div>
+          <h2 className="text-xl font-bold text-slate-800 dark:text-white">Traffic Signal Status</h2>
         </div>
-        <h2 className="text-xl font-bold text-slate-800">Traffic Signal Status</h2>
-        <span className="ml-3 bg-blue-100 text-blue-800 px-2 py-1 text-xs font-medium rounded-full">
-          {allDirections.length} Signals
-        </span>
+        <div className="flex items-center space-x-3">
+          <span className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-3 py-1 text-xs font-medium rounded-full shadow-sm">
+            {allDirections.length} Signals
+          </span>
+          <span className="bg-emerald-100 dark:bg-emerald-900 text-emerald-800 dark:text-emerald-200 px-3 py-1 text-xs font-medium rounded-full shadow-sm">
+            {allDirections.filter(dir => signals[dir].status === 'on').length} Active
+          </span>
+        </div>
       </div>
       
       <motion.div 
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pb-16"
         variants={container}
         initial="hidden"
         animate="show"
