@@ -370,17 +370,20 @@ const SignalChart: React.FC<SignalChartProps> = ({
         return (
           <ComposedChart {...chartProps} {...animationProps}>
             <defs>
+              {/* Area gradients */}
               {Object.entries(chartColors).map(([direction, colors]) => (
-                <React.Fragment key={`gradient-def-${direction}`}>
-                  <linearGradient id={`composed-area-${direction}`} x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor={colors.primary} stopOpacity={0.6}/>
-                    <stop offset="95%" stopColor={colors.primary} stopOpacity={0.05}/>
-                  </linearGradient>
-                  <linearGradient id={`composed-bar-${direction}`} x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor={colors.gradient[0]} stopOpacity={0.9}/>
-                    <stop offset="95%" stopColor={colors.gradient[1]} stopOpacity={0.9}/>
-                  </linearGradient>
-                </React.Fragment>
+                <linearGradient key={`composed-area-${direction}`} id={`composed-area-${direction}`} x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor={colors.primary} stopOpacity={0.6}/>
+                  <stop offset="95%" stopColor={colors.primary} stopOpacity={0.05}/>
+                </linearGradient>
+              ))}
+              
+              {/* Bar gradients */}
+              {Object.entries(chartColors).map(([direction, colors]) => (
+                <linearGradient key={`composed-bar-${direction}`} id={`composed-bar-${direction}`} x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor={colors.gradient[0]} stopOpacity={0.9}/>
+                  <stop offset="95%" stopColor={colors.gradient[1]} stopOpacity={0.9}/>
+                </linearGradient>
               ))}
             </defs>
             
