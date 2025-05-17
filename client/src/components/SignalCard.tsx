@@ -6,6 +6,15 @@ import { Info, Activity, MapPin, Cpu, ArrowUpRight, Clock, VolumeX, Volume2 } fr
 import { Skeleton } from "@/components/ui/skeleton";
 import { motion } from "framer-motion";
 import { useSoundEffects } from "@/hooks/useSoundEffects";
+import { 
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogFooter,
+} from "@/components/ui/dialog";
 
 interface SignalCardProps {
   direction: string;
@@ -352,16 +361,117 @@ const SignalCard: React.FC<SignalCardProps> = ({
                 }
               </span>
             </div>
-            <Button 
-              variant="outline" 
-              size="sm" 
-              className="bg-white dark:bg-slate-800 text-indigo-700 dark:text-indigo-400 border-indigo-200 dark:border-indigo-800 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 hover:text-indigo-800 dark:hover:text-indigo-300 hover:border-indigo-300 dark:hover:border-indigo-700 btn-3d"
-              onMouseEnter={() => playSound('hover')}
-            >
-              <Info className="h-4 w-4 mr-2" />
-              Details
-              <ArrowUpRight className="h-3 w-3 ml-1" />
-            </Button>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="bg-white dark:bg-slate-800 text-indigo-700 dark:text-indigo-400 border-indigo-200 dark:border-indigo-800 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 hover:text-indigo-800 dark:hover:text-indigo-300 hover:border-indigo-300 dark:hover:border-indigo-700 btn-3d"
+                  onMouseEnter={() => playSound('hover')}
+                  onClick={() => playSound('notification')}
+                >
+                  <Info className="h-4 w-4 mr-2" />
+                  Details
+                  <ArrowUpRight className="h-3 w-3 ml-1" />
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-[500px]">
+                <DialogHeader>
+                  <DialogTitle className="text-xl flex items-center">
+                    <div className={`w-4 h-4 rounded-full mr-2 ${
+                      signal.signal === "red" ? "bg-signal-red" :
+                      signal.signal === "green" ? "bg-signal-green" :
+                      signal.signal === "yellow" ? "bg-signal-yellow" :
+                      "bg-signal-black"
+                    }`}></div>
+                    {formatDirection(direction)} Signal Details
+                  </DialogTitle>
+                  <DialogDescription>
+                    Junction ID: {direction.toUpperCase()}-{Math.floor(Math.random() * 1000)}
+                  </DialogDescription>
+                </DialogHeader>
+                
+                <div className="grid grid-cols-2 gap-6 py-4">
+                  {/* Signal Status Section */}
+                  <div className="space-y-4">
+                    <h4 className="text-sm font-semibold text-slate-900 dark:text-slate-100">Signal Status</h4>
+                    <div className="space-y-2">
+                      <div className="flex justify-between text-sm">
+                        <span className="text-slate-500 dark:text-slate-400">Current:</span>
+                        <span className="font-medium capitalize">{signal.signal}</span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-slate-500 dark:text-slate-400">Uptime:</span>
+                        <span className="font-medium">99.8%</span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-slate-500 dark:text-slate-400">Avg. Cycle:</span>
+                        <span className="font-medium">126s</span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-slate-500 dark:text-slate-400">Green ratio:</span>
+                        <span className="font-medium">32%</span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-slate-500 dark:text-slate-400">Health Score:</span>
+                        <span className="font-medium text-emerald-600 dark:text-emerald-400">92%</span>
+                      </div>
+                      <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-700 rounded-full mt-1">
+                        <div className="h-full bg-emerald-500 rounded-full" style={{ width: '92%' }}></div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Duration Section */}
+                  <div className="space-y-4">
+                    <h4 className="text-sm font-semibold text-slate-900 dark:text-slate-100">Duration Information</h4>
+                    <div className="space-y-2">
+                      <div className="flex justify-between text-sm">
+                        <span className="text-slate-500 dark:text-slate-400">Current:</span>
+                        <span className="font-medium">{duration || signal.duration}s</span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-slate-500 dark:text-slate-400">Min Duration:</span>
+                        <span className="font-medium">10s</span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-slate-500 dark:text-slate-400">Max Duration:</span>
+                        <span className="font-medium">120s</span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-slate-500 dark:text-slate-400">Optimum:</span>
+                        <span className="font-medium text-emerald-600 dark:text-emerald-400">45s - 65s</span>
+                      </div>
+                      <div className="h-1.5 bg-slate-200 dark:bg-slate-700 rounded-full mt-1">
+                        <div 
+                          className="h-full bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full transition-all duration-500" 
+                          style={{ width: `${Math.min(100, Math.max(0, (parseInt(duration || signal.duration) - 10) / (120 - 10) * 100))}%` }}
+                        ></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <DialogFooter className="flex items-center justify-between">
+                  <div className="flex items-center px-3 py-1.5 rounded-full bg-slate-50 dark:bg-slate-800/50">
+                    <Activity className="text-indigo-600 dark:text-indigo-400 h-4 w-4 mr-2" />
+                    <span className="text-sm font-medium">
+                      {signal.status === "on" ? 
+                        <span className="text-emerald-600 dark:text-emerald-400">Active</span> : 
+                        <span className="text-red-600 dark:text-red-400">Inactive</span>
+                      }
+                    </span>
+                  </div>
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => playSound('notification')}
+                  >
+                    Close
+                  </Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
           </div>
         </div>
       </Card>
