@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import SystemOverview from "@/components/SystemOverview";
 import SignalCards from "@/components/SignalCards";
@@ -6,11 +6,54 @@ import SignalChart from "@/components/SignalChart";
 import DurationControlPanel from "@/components/DurationControlPanel";
 import Footer from "@/components/Footer";
 import ErrorDisplay from "@/components/ErrorDisplay";
-import { useSignalData } from "@/hooks/useSignalData";
-import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+
+// Advanced Dashboard Components
+import ThemeToggle from "@/components/Dashboard/ThemeToggle";
+import NotificationSystem from "@/components/Dashboard/NotificationSystem";
+import SignalHistoryTimeline from "@/components/Dashboard/SignalHistoryTimeline";
+import UserPreferences from "@/components/Dashboard/UserPreferences";
+import SignalPerformanceHeatMap from "@/components/Dashboard/SignalPerformanceHeatMap";
+
+// Hooks
+import useRealTimeData from "@/hooks/useRealTimeData";
+import useDarkMode from "@/hooks/useDarkMode";
+import { useState as useStateReact } from "react";
 
 const Home: React.FC = () => {
-  const { data, isLoading, isError, error, refetch } = useSignalData();
+  // Dark mode
+  const { isDarkMode, toggleDarkMode } = useDarkMode();
+  
+  // Dashboard user preferences
+  const [chartType, setChartType] = useState<string>("composed");
+  const [refreshInterval, setRefreshInterval] = useState<number>(5000); // 5 seconds
+  const [showNotifications, setShowNotifications] = useState<boolean>(true);
+  const [dashboardLayout, setDashboardLayout] = useState<string>("cards");
+  
+  // Real-time data with polling
+  const { 
+    data, 
+    previousData,
+    historicalData,
+    isLoading, 
+    error,
+    isPolling,
+    startPolling,
+    stopPolling,
+    refresh,
+    changePollingInterval
+  } = useRealTimeData({
+    initialInterval: refreshInterval,
+    autoStart: true,
+    maxHistoryLength: 20
+  });
+  
+  // Update polling interval when user preference changes
+  useEffect(() => {
+    changePollingInterval(refreshInterval);
+  }, [refreshInterval, changePollingInterval]);
+  
+  // Duration control state
   const [duration, setDuration] = useState<string>("50");
   const [lastUpdated, setLastUpdated] = useState<string>("Just now");
 
@@ -27,7 +70,7 @@ const Home: React.FC = () => {
   };
 
   const handleRefresh = async () => {
-    await refetch();
+    refresh();
     
     // Update the last updated timestamp
     const now = new Date();
@@ -56,17 +99,46 @@ const Home: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-slate-50 via-slate-50 to-blue-50">
-      <Header isOnline={!isError} lastUpdated={lastUpdated} />
+    <div className={`min-h-screen flex flex-col transition-colors duration-300 ${
+      isDarkMode 
+        ? 'bg-slate-900 text-slate-100' 
+        : 'bg-gradient-to-br from-slate-50 via-slate-50 to-blue-50 text-slate-900'
+    }`}>
+      <Header isOnline={!error} lastUpdated={lastUpdated} />
+      
+      <div className="fixed top-4 right-4 z-50 flex items-center space-x-2">
+        <ThemeToggle isDarkMode={isDarkMode} toggleTheme={toggleDarkMode} />
+        <UserPreferences 
+          isDarkMode={isDarkMode}
+          setIsDarkMode={toggleDarkMode}
+          refreshInterval={refreshInterval / 1000} // Convert to seconds for display
+          setRefreshInterval={(value) => setRefreshInterval(value * 1000)} // Convert to ms
+          chartType={chartType}
+          setChartType={setChartType}
+          showNotifications={showNotifications}
+          setShowNotifications={setShowNotifications}
+          dashboardLayout={dashboardLayout}
+          setDashboardLayout={setDashboardLayout}
+        />
+      </div>
+      
+      {/* Notification System */}
+      {showNotifications && data && previousData && (
+        <NotificationSystem signalData={data} previousData={previousData} />
+      )}
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow">
-        {isError ? (
-          <ErrorDisplay errorMessage={error as string} onRetry={refetch} />
+        {error ? (
+          <ErrorDisplay errorMessage={error.message} onRetry={handleRefresh} />
         ) : (
-          <div className="space-y-8">
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="space-y-8"
+          >
             <div className="relative">
-              <div className="absolute -top-6 -left-6 w-24 h-24 bg-blue-500/10 rounded-full blur-2xl"></div>
-              <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-indigo-500/10 rounded-full blur-3xl"></div>
+              <div className={`absolute -top-6 -left-6 w-24 h-24 ${isDarkMode ? 'bg-blue-800/20' : 'bg-blue-500/10'} rounded-full blur-2xl`}></div>
+              <div className={`absolute -bottom-10 -right-10 w-32 h-32 ${isDarkMode ? 'bg-indigo-800/20' : 'bg-indigo-500/10'} rounded-full blur-3xl`}></div>
               
               <SystemOverview 
                 isLoading={isLoading}
@@ -79,23 +151,43 @@ const Home: React.FC = () => {
             </div>
             
             <div className="relative">
-              <div className="absolute top-1/2 -translate-y-1/2 -left-8 w-16 h-64 bg-green-500/10 rounded-full blur-2xl"></div>
-              <div className="absolute top-1/2 -translate-y-1/2 -right-8 w-16 h-64 bg-yellow-500/10 rounded-full blur-2xl"></div>
+              <div className={`absolute top-1/2 -translate-y-1/2 -left-8 w-16 h-64 ${isDarkMode ? 'bg-green-800/20' : 'bg-green-500/10'} rounded-full blur-2xl`}></div>
+              <div className={`absolute top-1/2 -translate-y-1/2 -right-8 w-16 h-64 ${isDarkMode ? 'bg-yellow-800/20' : 'bg-yellow-500/10'} rounded-full blur-2xl`}></div>
               
               <div className="mb-4">
-                <h2 className="text-2xl font-bold gradient-text mb-1">Traffic Signal Status</h2>
-                <p className="text-slate-600">Current state of all traffic signals across monitored intersections</p>
+                <h2 className={`text-2xl font-bold ${isDarkMode ? 'text-white' : 'gradient-text'} mb-1`}>Traffic Signal Status</h2>
+                <p className={isDarkMode ? 'text-slate-400' : 'text-slate-600'}>Current state of all traffic signals across monitored intersections</p>
               </div>
               
-              <SignalCards 
-                signals={data || {}} 
-                isLoading={isLoading} 
-                duration={duration}
-              />
+              <div className={dashboardLayout === 'list' ? 'space-y-4' : ''}>
+                <SignalCards 
+                  signals={data || {}} 
+                  isLoading={isLoading} 
+                  duration={duration}
+                />
+              </div>
             </div>
             
+            {/* Signal History Timelines */}
+            {data && Object.keys(data).length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="grid grid-cols-1 md:grid-cols-3 gap-4"
+              >
+                {Object.keys(data).slice(0, 3).map(direction => (
+                  <SignalHistoryTimeline 
+                    key={direction}
+                    signalData={data} 
+                    direction={direction}
+                    maxEntries={5}
+                  />
+                ))}
+              </motion.div>
+            )}
+            
             <div className="relative">
-              <div className="absolute -bottom-8 left-1/3 w-40 h-24 bg-purple-500/10 rounded-full blur-3xl"></div>
+              <div className={`absolute -bottom-8 left-1/3 w-40 h-24 ${isDarkMode ? 'bg-purple-800/20' : 'bg-purple-500/10'} rounded-full blur-3xl`}></div>
               
               <DurationControlPanel 
                 duration={duration} 
@@ -105,21 +197,53 @@ const Home: React.FC = () => {
             
             {/* Real-time Signal Chart with Advanced Visualizations */}
             <div className="relative mt-12 mb-6 transform transition-all duration-1000 hover:scale-[1.01]">
-              <div className="absolute top-1/2 -translate-y-1/2 -left-8 w-16 h-64 bg-blue-500/10 rounded-full blur-2xl"></div>
-              <div className="absolute top-1/2 -translate-y-1/2 -right-8 w-16 h-64 bg-purple-500/10 rounded-full blur-2xl"></div>
+              <div className={`absolute top-1/2 -translate-y-1/2 -left-8 w-16 h-64 ${isDarkMode ? 'bg-blue-800/20' : 'bg-blue-500/10'} rounded-full blur-2xl`}></div>
+              <div className={`absolute top-1/2 -translate-y-1/2 -right-8 w-16 h-64 ${isDarkMode ? 'bg-purple-800/20' : 'bg-purple-500/10'} rounded-full blur-2xl`}></div>
               
               <div className="mb-4">
-                <h2 className="text-2xl font-bold gradient-text mb-1">Advanced Signal Analytics</h2>
-                <p className="text-slate-600">Real-time animated visualization of traffic signal patterns and timing analysis</p>
+                <h2 className={`text-2xl font-bold ${isDarkMode ? 'text-white' : 'gradient-text'} mb-1`}>Advanced Signal Analytics</h2>
+                <p className={isDarkMode ? 'text-slate-400' : 'text-slate-600'}>Real-time animated visualization of traffic signal patterns and timing analysis</p>
               </div>
               
               <SignalChart 
                 signalData={data || {}} 
                 isLoading={isLoading}
-                chartType="composed"
+                chartType={chartType as any}
               />
             </div>
-          </div>
+            
+            {/* Performance Heat Map */}
+            {historicalData.length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+              >
+                <SignalPerformanceHeatMap
+                  signalData={data || {}}
+                  historicalData={historicalData}
+                />
+              </motion.div>
+            )}
+            
+            {/* Real-time status indicator */}
+            <div className="fixed bottom-4 left-4 flex items-center space-x-2 z-50">
+              <div className={`h-3 w-3 rounded-full ${isPolling ? 'bg-green-500 animate-pulse' : 'bg-red-500'}`}></div>
+              <p className="text-xs font-medium">
+                {isPolling ? 'Real-time updates active' : 'Updates paused'}
+              </p>
+              <button 
+                onClick={isPolling ? stopPolling : startPolling}
+                className={`text-xs px-2 py-1 rounded-full ${
+                  isPolling 
+                    ? 'bg-slate-200 text-slate-800 hover:bg-slate-300' 
+                    : 'bg-blue-500 text-white hover:bg-blue-600'
+                }`}
+              >
+                {isPolling ? 'Pause' : 'Resume'}
+              </button>
+            </div>
+          </motion.div>
         )}
       </main>
       
