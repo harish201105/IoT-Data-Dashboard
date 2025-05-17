@@ -1,0 +1,46 @@
+Error fetching signal data: 
+TypeError {}
+
+at t.value (https://c36f0913-970e-408e-973d-52bf3301bccd-00-d5pnc2tauz69.janeway.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:17465)
+at new t (https://c36f0913-970e-408e-973d-52bf3301bccd-00-d5pnc2tauz69.janeway.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:12630)
+at t.value (https://c36f0913-970e-408e-973d-52bf3301bccd-00-d5pnc2tauz69.janeway.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:32766)
+at https://c36f0913-970e-408e-973d-52bf3301bccd-00-d5pnc2tauz69.janeway.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:34400
+Failed to fetch
+at window.fetch (https://c36f0913-970e-408e-973d-52bf3301bccd-00-d5pnc2tauz69.janeway.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:218642)
+at fetchSignalData (https://c36f0913-970e-408e-973d-52bf3301bccd-00-d5pnc2tauz69.janeway.replit.dev/src/lib/api.ts:4:28)
+at queryFn (https://c36f0913-970e-408e-973d-52bf3301bccd-00-d5pnc2tauz69.janeway.replit.dev/src/hooks/useSignalData.ts:8:22)
+at Object.fetchFn [as fn] (https://c36f0913-970e-408e-973d-52bf3301bccd-00-d5pnc2tauz69.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=42d98daf:840:14)
+at run (https://c36f0913-970e-408e-973d-52bf3301bccd-00-d5pnc2tauz69.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=42d98daf:494:49)
+at Object.start (https://c36f0913-970e-408e-973d-52bf3301bccd-00-d5pnc2tauz69.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=42d98daf:536:9)
+at _a4.fetch (https://c36f0913-970e-408e-973d-52bf3301bccd-00-d5pnc2tauz69.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=42d98daf:926:41)
+at _a9.executeFetch_fn (https://c36f0913-970e-408e-973d-52bf3301bccd-00-d5pnc2tauz69.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=42d98daf:2211:51)
+at _a9.fetch (https://c36f0913-970e-408e-973d-52bf3301bccd-00-d5pnc2tauz69.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=42d98daf:2011:77)
+at _a9.refetch (https://c36f0913-970e-408e-973d-52bf3301bccd-00-d5pnc2tauz69.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=42d98daf:2001:17)
+Error fetching signal data: 
+TypeError {}
+
+at t.value (https://c36f0913-970e-408e-973d-52bf3301bccd-00-d5pnc2tauz69.janeway.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:17465)
+at new t (https://c36f0913-970e-408e-973d-52bf3301bccd-00-d5pnc2tauz69.janeway.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:12630)
+at t.value (https://c36f0913-970e-408e-973d-52bf3301bccd-00-d5pnc2tauz69.janeway.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:32766)
+at https://c36f0913-970e-408e-973d-52bf3301bccd-00-d5pnc2tauz69.janeway.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:34400
+Failed to fetch
+at window.fetch (https://c36f0913-970e-408e-973d-52bf3301bccd-00-d5pnc2tauz69.janeway.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:218642)
+at fetchSignalData (https://c36f0913-970e-408e-973d-52bf3301bccd-00-d5pnc2tauz69.janeway.replit.dev/src/lib/api.ts:4:28)
+at queryFn (https://c36f0913-970e-408e-973d-52bf3301bccd-00-d5pnc2tauz69.janeway.replit.dev/src/hooks/useSignalData.ts:8:22)
+at Object.fetchFn [as fn] (https://c36f0913-970e-408e-973d-52bf3301bccd-00-d5pnc2tauz69.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=42d98daf:840:14)
+at run (https://c36f0913-970e-408e-973d-52bf3301bccd-00-d5pnc2tauz69.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=42d98daf:494:49)
+at https://c36f0913-970e-408e-973d-52bf3301bccd-00-d5pnc2tauz69.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=42d98daf:519:11
+Error fetching signal data: 
+TypeError {}
+
+at t.value (https://c36f0913-970e-408e-973d-52bf3301bccd-00-d5pnc2tauz69.janeway.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:17465)
+at new t (https://c36f0913-970e-408e-973d-52bf3301bccd-00-d5pnc2tauz69.janeway.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:12630)
+at t.value (https://c36f0913-970e-408e-973d-52bf3301bccd-00-d5pnc2tauz69.janeway.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:32766)
+at https://c36f0913-970e-408e-973d-52bf3301bccd-00-d5pnc2tauz69.janeway.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:34400
+Failed to fetch
+at window.fetch (https://c36f0913-970e-408e-973d-52bf3301bccd-00-d5pnc2tauz69.janeway.replit.dev/__replco/static/devtools/eruda/3.2.3/eruda.js:2:218642)
+at fetchSignalData (https://c36f0913-970e-408e-973d-52bf3301bccd-00-d5pnc2tauz69.janeway.replit.dev/src/lib/api.ts:4:28)
+at queryFn (https://c36f0913-970e-408e-973d-52bf3301bccd-00-d5pnc2tauz69.janeway.replit.dev/src/hooks/useSignalData.ts:8:22)
+at Object.fetchFn [as fn] (https://c36f0913-970e-408e-973d-52bf3301bccd-00-d5pnc2tauz69.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=42d98daf:840:14)
+at run (https://c36f0913-970e-408e-973d-52bf3301bccd-00-d5pnc2tauz69.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=42d98daf:494:49)
+at https://c36f0913-970e-408e-973d-52bf3301bccd-00-d5pnc2tauz69.janeway.replit.dev/@fs/home/runner/workspace/node_modules/.vite/deps/@tanstack_react-query.js?v=42d98daf:519:11

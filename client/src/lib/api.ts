@@ -1,10 +1,9 @@
 import { SignalData } from "@/types/signals";
 
-const API_URL = "https://prayalabs.com/rest/api/iot";
-
+// Using a local server proxy to handle potential CORS issues
 export async function fetchSignalData(): Promise<SignalData> {
   try {
-    const response = await fetch(API_URL);
+    const response = await fetch("/api/iot");
     
     if (!response.ok) {
       throw new Error(`API error: ${response.status} ${response.statusText}`);
