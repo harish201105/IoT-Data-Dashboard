@@ -9,10 +9,8 @@ import ErrorDisplay from "@/components/ErrorDisplay";
 import { motion, AnimatePresence } from "framer-motion";
 
 // Advanced Dashboard Components
-import ThemeToggle from "@/components/Dashboard/ThemeToggle";
 import NotificationSystem from "@/components/Dashboard/NotificationSystem";
 import SignalHistoryTimeline from "@/components/Dashboard/SignalHistoryTimeline";
-import UserPreferences from "@/components/Dashboard/UserPreferences";
 import SignalPerformanceHeatMap from "@/components/Dashboard/SignalPerformanceHeatMap";
 
 // Hooks
@@ -104,27 +102,20 @@ const Home: React.FC = () => {
         ? 'bg-slate-900 text-slate-100' 
         : 'bg-gradient-to-br from-slate-50 via-slate-50 to-blue-50 text-slate-900'
     }`}>
-      <Header isOnline={!error} lastUpdated={lastUpdated} />
-      
-      {/* User control panel as a floating toolbar at top of screen */}
-      <div className="fixed top-0 left-0 right-0 z-50 flex justify-center">
-        <div className="mt-2 px-4 py-2 bg-white/90 dark:bg-slate-800/90 rounded-full shadow-lg backdrop-blur-sm border border-slate-100 dark:border-slate-700 flex items-center space-x-4">
-          <ThemeToggle isDarkMode={isDarkMode} toggleTheme={toggleDarkMode} />
-          <div className="h-6 w-0.5 bg-slate-200 dark:bg-slate-700"></div>
-          <UserPreferences 
-            isDarkMode={isDarkMode}
-            setIsDarkMode={toggleDarkMode}
-            refreshInterval={refreshInterval / 1000} // Convert to seconds for display
-            setRefreshInterval={(value) => setRefreshInterval(value * 1000)} // Convert to ms
-            chartType={chartType}
-            setChartType={setChartType}
-            showNotifications={showNotifications}
-            setShowNotifications={setShowNotifications}
-            dashboardLayout={dashboardLayout}
-            setDashboardLayout={setDashboardLayout}
-          />
-        </div>
-      </div>
+      <Header 
+        isOnline={!error} 
+        lastUpdated={lastUpdated}
+        isDarkMode={isDarkMode}
+        toggleDarkMode={toggleDarkMode}
+        refreshInterval={refreshInterval}
+        setRefreshInterval={setRefreshInterval}
+        chartType={chartType}
+        setChartType={setChartType}
+        showNotifications={showNotifications}
+        setShowNotifications={setShowNotifications}
+        dashboardLayout={dashboardLayout}
+        setDashboardLayout={setDashboardLayout}
+      />
       
       {/* Notification System - moved to left side to avoid overlapping */}
       {showNotifications && data && previousData && (
