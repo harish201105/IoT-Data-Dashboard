@@ -101,29 +101,50 @@ const SignalCard: React.FC<SignalCardProps> = ({
 
         <div className="p-6">
           <div className="relative mb-6 overflow-hidden rounded-xl group shadow-lg">
-            <div className={`h-40 bg-gradient-to-r ${getSignalColor(direction, signal.signal)} rounded-lg relative flex items-center justify-center transition-all duration-300 group-hover:scale-[1.02]`}>
-              <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzRoLTJ2LTJoMnYyem0wLTRoLTJ2LTJoMnYyem0wLTR2LTJoLTJ2LTJoNHY0aC0yem0tNCAwdi0yaC0ydi0yaDR2NGgtMnptLTQgOGgtMnYtMmgydjJ6bTAtNGgtMnYtMmgydjJ6bTAtNGgtMnYtMmgydjJ6bTAtNGgtMnYtMmgydjJ6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-10"></div>
-              <div className="text-center text-white z-10">
-                <div className={`w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-3 bg-white/20 backdrop-blur-sm border border-white/30`}>
-                  <div className={`w-12 h-12 rounded-full ${
-                    signal.signal === "red" ? "bg-signal-red" :
-                    signal.signal === "green" ? "bg-signal-green" :
-                    signal.signal === "yellow" ? "bg-signal-yellow" :
-                    "bg-signal-black"
-                  }`}></div>
+            <div className="traffic-signal-bg h-56 relative rounded-lg flex justify-center items-center">
+              {/* Realistic Traffic Light Component */}
+              <div className="flex justify-center items-center relative z-10">
+                <div className="traffic-light-housing">
+                  {/* Traffic light housing */}
+                  <div className="traffic-light-body">
+                    {/* Red light */}
+                    <div className={`traffic-light-bulb red ${signal.signal === 'red' ? 'active' : ''}`}>
+                      <div className="traffic-light-glow"></div>
+                    </div>
+                    {/* Yellow light */}
+                    <div className={`traffic-light-bulb yellow ${signal.signal === 'yellow' ? 'active' : ''}`}>
+                      <div className="traffic-light-glow"></div>
+                    </div>
+                    {/* Green light */}
+                    <div className={`traffic-light-bulb green ${signal.signal === 'green' ? 'active' : ''}`}>
+                      <div className="traffic-light-glow"></div>
+                    </div>
+                  </div>
+                  <div className="traffic-light-pole"></div>
                 </div>
-                <h3 className="text-xl font-bold tracking-tight">{formatDirection(direction)}</h3>
-                <p className="text-white/80 text-sm mt-1">Traffic Signal</p>
               </div>
               
-              <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/60 to-transparent">
-                <div className="flex items-center justify-between text-white/90">
-                  <div className="flex items-center">
-                    <Cpu className="h-3 w-3 mr-1" />
-                    <span className="text-xs">ID: {direction.toUpperCase()}-{Math.floor(Math.random() * 1000)}</span>
+              {/* Direction & Junction Details */}
+              <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/70 to-transparent">
+                <div className="flex flex-col text-white">
+                  <h3 className="text-xl font-bold tracking-tight">{formatDirection(direction)} Intersection</h3>
+                  <div className="mt-1 flex justify-between items-center">
+                    <div className="flex items-center">
+                      <Cpu className="h-3 w-3 mr-1" />
+                      <span className="text-xs">Junction ID: {direction.toUpperCase()}-{Math.floor(Math.random() * 1000)}</span>
+                    </div>
+                    <span className="text-xs font-semibold uppercase px-2 py-0.5 rounded bg-white/20 backdrop-blur-sm">
+                      Signal: {signal.signal}
+                    </span>
                   </div>
-                  <span className="text-xs">{signal.signal.toUpperCase()}</span>
                 </div>
+              </div>
+              
+              {/* Background Elements */}
+              <div className="absolute inset-0 junction-pattern opacity-10"></div>
+              {/* Status Indicator */}
+              <div className="absolute top-4 right-4">
+                <div className={`status-pulse ${signal.status === 'on' ? 'active' : 'inactive'}`}></div>
               </div>
             </div>
           </div>
