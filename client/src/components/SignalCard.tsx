@@ -37,10 +37,10 @@ const SignalCard: React.FC<SignalCardProps> = ({
         <Card className="premium-card shadow-lg border border-slate-200 dark:border-slate-700 overflow-hidden">
           <div className="p-4 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-700">
             <motion.div variants={skeletonVariants} animate="pulse">
-              <Skeleton className="h-6 w-40 bg-slate-200 dark:bg-slate-600" />
+              <Skeleton className="h-6 w-40 bg-slate-200 dark:bg-slate-600 premium-skeleton" />
             </motion.div>
             <motion.div variants={skeletonVariants} animate="pulse">
-              <Skeleton className="h-6 w-12 rounded-full bg-slate-200 dark:bg-slate-600" />
+              <Skeleton className="h-6 w-12 rounded-full bg-slate-200 dark:bg-slate-600 premium-skeleton" />
             </motion.div>
           </div>
           <div className="p-5">
@@ -58,9 +58,9 @@ const SignalCard: React.FC<SignalCardProps> = ({
             </motion.div>
             <div className="grid grid-cols-2 gap-6 mb-6">
               <motion.div variants={skeletonVariants} animate="pulse" className="glass-panel p-4 text-center">
-                <Skeleton className="h-4 w-20 mx-auto mb-3 bg-slate-200 dark:bg-slate-600" />
-                <Skeleton className="h-16 w-16 rounded-full mx-auto bg-slate-200 dark:bg-slate-600" />
-                <Skeleton className="h-4 w-16 mx-auto mt-3 bg-slate-200 dark:bg-slate-600" />
+                <Skeleton className="h-4 w-20 mx-auto mb-3 bg-slate-200 dark:bg-slate-600 premium-skeleton" />
+                <Skeleton className="h-16 w-16 rounded-full mx-auto bg-slate-200 dark:bg-slate-600 premium-skeleton" />
+                <Skeleton className="h-4 w-16 mx-auto mt-3 bg-slate-200 dark:bg-slate-600 premium-skeleton" />
               </motion.div>
               <motion.div variants={skeletonVariants} animate="pulse" className="glass-panel p-4 text-center">
                 <Skeleton className="h-4 w-20 mx-auto mb-3 bg-slate-200 dark:bg-slate-600" />

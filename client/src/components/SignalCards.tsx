@@ -53,17 +53,27 @@ const SignalCards: React.FC<SignalCardsProps> = ({ signals, isLoading, duration 
         animate="show"
       >
         {isLoading ? (
-          // Show skeleton cards while loading
-          <>
+          // Show skeleton cards with staggered loading animation
+          <div className="stagger-fade-in">
             {loadingPlaceholders.map((direction) => (
-              <SignalCard
+              <motion.div
                 key={direction}
-                direction={direction}
-                signal={{ signal: "", duration: "", status: "" }}
-                isLoading={true}
-              />
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ 
+                  duration: 0.5,
+                  delay: loadingPlaceholders.indexOf(direction) * 0.1
+                }}
+              >
+                <SignalCard
+                  key={direction}
+                  direction={direction}
+                  signal={{ signal: "", duration: "", status: "" }}
+                  isLoading={true}
+                />
+              </motion.div>
             ))}
-          </>
+          </div>
         ) : (
           // Show actual signal cards for all directions from API
           allDirections.map((direction, index) => (
