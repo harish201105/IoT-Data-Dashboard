@@ -529,6 +529,8 @@
 /* Signal card tooltip container */
 .signal-tooltip-container {
   position: relative;
+  isolation: isolate;
+  z-index: 1;
 }
 
 /* Signal card info tooltip */
@@ -539,6 +541,7 @@
   transition: all 0.3s ease;
   pointer-events: none;
   z-index: 100;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
 .signal-tooltip-container:hover .signal-tooltip {

@@ -47,7 +47,7 @@ const SignalCards: React.FC<SignalCardsProps> = ({ signals, isLoading, duration 
       </div>
       
       <motion.div 
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pb-16"
+        className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8 pb-16"
         variants={container}
         initial="hidden"
         animate="show"
