@@ -5,10 +5,14 @@ import ThemeToggle from "./Dashboard/ThemeToggle";
 import UserPreferences from "./Dashboard/UserPreferences";
 import { Button } from "./ui/button";
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogFooter,
+  DialogClose
+} from "@/components/ui/dialog";
 
 interface HeaderProps {
   isOnline: boolean;
@@ -92,16 +96,18 @@ const Header: React.FC<HeaderProps> = ({
           {/* Theme Toggle */}
           <ThemeToggle isDarkMode={isDarkMode} toggleTheme={toggleDarkMode} />
           
-          {/* Settings Popover */}
-          <Popover>
-            <PopoverTrigger asChild>
+          {/* Settings Dialog */}
+          <Dialog>
+            <DialogTrigger asChild>
               <Button variant="outline" size="icon" className="h-9 w-9">
                 <Settings className="h-4 w-4" />
               </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-[280px] p-0" align="end">
-              <div className="p-4 space-y-4">
-                <div className="font-medium text-sm leading-none">Settings</div>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+              <DialogHeader>
+                <DialogTitle>Dashboard Settings</DialogTitle>
+              </DialogHeader>
+              <div className="py-4">
                 <UserPreferences 
                   isDarkMode={isDarkMode}
                   setIsDarkMode={toggleDarkMode}
@@ -115,8 +121,13 @@ const Header: React.FC<HeaderProps> = ({
                   setDashboardLayout={setDashboardLayout}
                 />
               </div>
-            </PopoverContent>
-          </Popover>
+              <DialogFooter>
+                <DialogClose asChild>
+                  <Button type="button">Close Settings</Button>
+                </DialogClose>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
         </div>
       </div>
     </motion.header>
