@@ -84,11 +84,67 @@ const DurationControlPanel: React.FC<DurationControlPanelProps> = ({
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div className="lg:col-span-2">
               <div className="relative overflow-hidden rounded-xl mb-4 group">
-                <img 
-                  src="https://images.pexels.com/photos/2882566/pexels-photo-2882566.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" 
-                  alt="IoT control panel interface" 
-                  className="w-full h-60 md:h-72 object-cover transition-transform duration-700 ease-in-out group-hover:scale-105"
-                />
+                <div className="processor-animation relative w-full h-60 md:h-72 bg-gradient-to-br from-indigo-900 via-blue-800 to-purple-900 overflow-hidden">
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="processor-chip relative w-52 h-52 bg-gradient-to-br from-slate-800 to-slate-900 rounded-lg shadow-xl flex items-center justify-center">
+                      {/* Processor grid pattern */}
+                      <div className="absolute inset-4 grid grid-cols-8 grid-rows-8 gap-1">
+                        {Array(64).fill(0).map((_, i) => (
+                          <div 
+                            key={i} 
+                            className="bg-slate-700 rounded-sm" 
+                            style={{
+                              animation: `pulse 3s infinite ${i % 8 * 0.1}s`,
+                              opacity: Math.random() > 0.7 ? 0.9 : 0.4
+                            }}
+                          />
+                        ))}
+                      </div>
+                      
+                      {/* CPU Core */}
+                      <div className="relative z-10 w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-md shadow-lg flex items-center justify-center">
+                        <div className="w-12 h-12 border-2 border-blue-400 rounded-md flex items-center justify-center">
+                          <div className="w-8 h-8 bg-gradient-to-br from-indigo-400 to-blue-500 rounded-sm animate-pulse" />
+                        </div>
+                      </div>
+                      
+                      {/* Connecting traces */}
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="w-full h-full border-2 border-slate-700 rounded-lg" />
+                      </div>
+                      
+                      {/* Animated data flows */}
+                      <div className="data-flow-animation absolute inset-0">
+                        {Array(8).fill(0).map((_, i) => (
+                          <div 
+                            key={i}
+                            className="absolute h-1 w-8 bg-blue-500 rounded-full opacity-70"
+                            style={{
+                              top: `${10 + i * 10}%`,
+                              left: 0,
+                              animation: `dataFlowHorizontal 2s infinite ${i * 0.2}s linear`
+                            }}
+                          />
+                        ))}
+                        
+                        {Array(8).fill(0).map((_, i) => (
+                          <div 
+                            key={i}
+                            className="absolute h-8 w-1 bg-indigo-500 rounded-full opacity-70"
+                            style={{
+                              left: `${10 + i * 10}%`,
+                              top: 0,
+                              animation: `dataFlowVertical 2s infinite ${i * 0.2}s linear`
+                            }}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Background circuit patterns */}
+                  <div className="absolute inset-0 circuit-pattern opacity-20" />
+                </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <div className="absolute bottom-4 left-4 right-4">
                     <h3 className="text-white font-bold text-lg">Control Center</h3>
