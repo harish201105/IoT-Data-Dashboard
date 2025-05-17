@@ -462,13 +462,15 @@ const SignalCard: React.FC<SignalCardProps> = ({
                       }
                     </span>
                   </div>
-                  <Button 
-                    variant="outline" 
-                    size="sm"
-                    onClick={() => playSound('notification')}
-                  >
-                    Close
-                  </Button>
+                  <DialogTrigger asChild>
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      onClick={() => playSound('notification')}
+                    >
+                      Close
+                    </Button>
+                  </DialogTrigger>
                 </DialogFooter>
               </DialogContent>
             </Dialog>
