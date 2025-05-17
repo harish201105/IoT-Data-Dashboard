@@ -25,10 +25,21 @@ const SignalPerformanceHeatMap: React.FC<SignalPerformanceHeatMapProps> = ({
 
   // Calculate performance scores based on signal stability and transitions
   useEffect(() => {
-    if (historicalData.length < 2) return;
+    if (!historicalData || historicalData.length < 2) {
+      console.log("Not enough historical data for performance calculation");
+      return;
+    }
+
+    // Make sure we have valid data to work with
+    if (!signalData || Object.keys(signalData).length === 0) {
+      console.log("No signal data available for performance calculation");
+      return;
+    }
 
     const scores: Record<string, number> = {};
     const directions = Object.keys(signalData);
+    
+    console.log(`Processing performance data for ${directions.length} directions with ${historicalData.length} historical records`);
 
     directions.forEach(direction => {
       let score = 100; // Start with perfect score
@@ -38,6 +49,9 @@ const SignalPerformanceHeatMap: React.FC<SignalPerformanceHeatMapProps> = ({
       
       // Analyze historical transitions
       for (let i = 1; i < historicalData.length; i++) {
+        // Safety checks to avoid undefined errors
+        if (!historicalData[i-1].data || !historicalData[i].data) continue;
+        
         const prevData = historicalData[i-1].data[direction];
         const currData = historicalData[i].data[direction];
         
@@ -118,8 +132,19 @@ const SignalPerformanceHeatMap: React.FC<SignalPerformanceHeatMapProps> = ({
         <h3 className="text-lg font-bold">Signal Performance Heat Map</h3>
       </div>
       
-      <div className="grid grid-cols-3 gap-2 mb-4">
-        {Object.entries(performanceScores).map(([direction, score]) => (
+      {Object.keys(performanceScores).length === 0 ? (
+        <div className="p-8 text-center">
+          <div className="animate-pulse flex flex-col items-center justify-center">
+            <Thermometer className="h-10 w-10 text-slate-300 dark:text-slate-600 mb-4" />
+            <p className="text-slate-500 dark:text-slate-400">Collecting performance data...</p>
+            <p className="text-xs text-slate-400 dark:text-slate-500 mt-2">
+              Performance metrics will appear after collecting sufficient signal data
+            </p>
+          </div>
+        </div>
+      ) : (
+        <div className="grid grid-cols-3 gap-2 mb-4">
+          {Object.entries(performanceScores).map(([direction, score]) => (
           <motion.div
             key={direction}
             className={`p-4 rounded-lg ${getCellColor(score)} relative cursor-help`}
@@ -147,6 +172,7 @@ const SignalPerformanceHeatMap: React.FC<SignalPerformanceHeatMapProps> = ({
           </motion.div>
         ))}
       </div>
+      )}
       
       {hoverInfo && (
         <motion.div
