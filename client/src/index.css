@@ -60,24 +60,74 @@
   }
 
   body {
-    @apply font-sans antialiased bg-slate-50 text-slate-700;
+    @apply font-sans antialiased bg-gradient-to-b from-slate-50 to-slate-100 text-slate-700 min-h-screen;
   }
 }
 
+/* Element transitions and animations */
+.page-transition {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.card-transition {
+  transition: all 0.3s ease;
+}
+
+.card-transition:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+}
+
+.signal-card-fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulseGlow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
+  }
+}
+
+/* Signal specific styles */
 .bg-signal-red {
   background-color: #dc2626;
+  box-shadow: 0 0 15px rgba(220, 38, 38, 0.5);
+  transition: all 0.3s ease;
 }
 
 .bg-signal-green {
   background-color: #16a34a;
+  box-shadow: 0 0 15px rgba(22, 163, 74, 0.5);
+  transition: all 0.3s ease;
 }
 
 .bg-signal-yellow {
   background-color: #eab308;
+  box-shadow: 0 0 15px rgba(234, 179, 8, 0.5);
+  transition: all 0.3s ease;
 }
 
 .bg-signal-black {
   background-color: #1e293b;
+  box-shadow: 0 0 15px rgba(30, 41, 59, 0.5);
+  transition: all 0.3s ease;
 }
 
 .signal-indicator {
@@ -85,4 +135,37 @@
   height: 50px;
   border-radius: 50%;
   margin: 0 auto;
+  animation: pulseGlow 2s infinite;
+}
+
+/* Enhanced Status Indicator */
+.status-on {
+  animation: pulseGlow 2s infinite;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Enhanced UI elements */
+.gradient-text {
+  background: linear-gradient(90deg, #3b82f6 0%, #2563eb 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glass-effect {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* Smooth duration number transitions */
+.duration-value {
+  transition: all 0.5s ease;
 }
