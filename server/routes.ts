@@ -18,15 +18,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Add a timestamp to each signal to track real-time updates
       const timestamp = new Date().toISOString();
       
-      // Add the timestamp to each signal (with proper type checking)
+      // Convert to typed object and add timestamp
       const responseData = data as Record<string, any>;
+      
+      // Log the raw data for verification
+      console.log(`API Response at ${timestamp}:`, JSON.stringify(responseData).substring(0, 200) + "...");
+      
+      // Add timestamp to each signal
       Object.keys(responseData).forEach(key => {
         if (responseData[key] && typeof responseData[key] === 'object') {
           responseData[key].timestamp = timestamp;
         }
       });
       
-      res.json(data);
+      res.json(responseData);
     } catch (error) {
       console.error("Error fetching IoT data:", error);
       
