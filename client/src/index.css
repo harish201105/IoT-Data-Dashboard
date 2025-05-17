@@ -520,19 +520,10 @@
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
-.traffic-signal-card:hover::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1px; /* Reduced thickness */
-  background: linear-gradient(120deg, #3b82f6, #8b5cf6);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
-  opacity: 0.5; /* More subtle opacity */
-  box-shadow: 0 0 15px rgba(59, 130, 246, 0.1);
+/* Remove the after pseudo-element that was causing the grid-like line */
+.traffic-signal-card:hover {
+  border-color: rgba(59, 130, 246, 0.4);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15), 0 0 15px rgba(59, 130, 246, 0.2);
 }
 
 .dark-mode .dashboard-card {
