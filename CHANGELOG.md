@@ -9,7 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 ### Added
 - Initial commit (IoT Dashboard) – a modern dashboard (React (TypeScript) + Express (Node.js)) for monitoring real-time traffic signal data.
 - README.md – project overview, tech stack, setup instructions, usage guide, API overview, folder structure, contribution guidelines, and license reference.
-- LICENSE (MIT) – (c) 2024 Harish Parthasarathy.
+- LICENSE (MIT) – (c) 2025 Harish Parthasarathy.
 - CONTRIBUTING.md – basic contribution guidelines (fork, branch, commit, PR, and code style).
 - CHANGELOG.md – (this file) – a template for tracking changes.
 
